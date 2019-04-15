@@ -1,2 +1,3 @@
 # Slack-CL4P-TP
-Claptrap
+
+Simple chat bot base on Claptrap from Borderlands.
