@@ -6,10 +6,11 @@ require './actions/idle'
 require './actions/sing'
 require './actions/dance'
 
-# Base
+# Ears of Claptrap
 class CL4P
   include Persona
   include Speech
+
   def initialize
 
     configure_client
