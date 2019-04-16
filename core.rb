@@ -20,10 +20,7 @@ class CL4P
     end
 
     @client.on :message do |data|
-      text = data.text
-      channel = data.channel
-
-      Directive.serve(text, channel)
+      Directive.serve(data)
     end
 
     @client.start!

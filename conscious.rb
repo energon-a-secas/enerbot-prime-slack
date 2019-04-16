@@ -1,15 +1,19 @@
 # Directives
 class Directive
-  def self.serve(text, channel)
+  def self.serve(data)
+    text = data.text
+    channel = data.channel
+    thread = data.ts
+
     case text
     when /no eventos/
-      Idle.quote(channel)
+      Idle.quote(channel, thread)
     when /(bail[ea]|directive three)/
-      Dance.disco(channel)
+      Dance.disco(channel, thread)
     when /canta/
-      Sing.song(channel)
+      Sing.song(channel, thread)
     when /recomienda una canci[oó]n/
-      Sing.recommend(channel)
+      Sing.recommend(channel, thread)
     end
   end
 end
