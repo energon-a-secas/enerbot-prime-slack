@@ -1,5 +1,5 @@
 require 'slack-ruby-client'
-require './sight'
+require './conscious'
 require './soul'
 require './voice'
 require './actions/idle'
