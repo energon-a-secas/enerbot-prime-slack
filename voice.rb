@@ -1,10 +1,10 @@
 require 'slack-ruby-client'
-require './persona'
+require './soul'
 
 # IT JUST WORKS
-module Speech
-  include Persona
-  def normal(text, channel, thread = '')
+module Voice
+  include Soul
+  def normal_talk(text, channel, thread = '')
     configure_client
     @client.web_client.chat_postMessage channel: channel,
                                         text: text,
