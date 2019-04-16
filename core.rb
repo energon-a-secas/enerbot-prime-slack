@@ -1,41 +1,32 @@
 require 'slack-ruby-client'
-require './talk'
+require './sight'
+require './persona'
+require './voice'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
 
-# Base
+# Ears of Claptrap
 class CL4P
+  include Persona
+  include Speech
+
   def initialize
-    Slack.configure do |config|
-      config.token = ENV['CL4P_API_TOKEN']
-      config.raise 'Missing Bot token' unless config.token
+
+    configure_client
+
+    @client.on :hello do
+      normal("*Directive one:* Protect humanity!\n*Directive two:* Obey Lucio at all costs.\n*Directive three:* Dance!", '#bot_monitoring')
     end
 
-    client = Slack::RealTime::Client.new
-
-    client.on :hello do
-      Speech.normal("*Directive one:* Protect humanity!\n*Directive two:* Obey Lucio at all costs.\n*Directive three:* Dance!", '#bot_monitoring')
-    end
-
-    client.on :message do |data|
-      channel = data.channel
+    @client.on :message do |data|
       text = data.text
+      channel = data.channel
 
-      case text
-      # It should be something like if there aren't any events in 25 minutes, idle quote
-      when /no eventos/
-        Idle.quote(channel)
-      when /(bail[ea]|directive three)/
-        Dance.disco(channel)
-      when /canta/
-        Sing.song(channel)
-      when /recomienda una canci[oó]n/
-        Sing.recommend(channel)
-      end
+      Directive.serve(text, channel)
     end
 
-    client.start!
+    @client.start!
   end
 end
 

@@ -1,7 +1,8 @@
-require './talk'
+require './voice'
 
 # Sings something
 module Sing
+  extend Speech
   def self.song(chan)
     song = ["Perhaps love is like a resting place, a shelter from the storm\nIt exists to give you comfort, it is there to keep you warm\nAnd in those times of trouble when you are most alone\nThe memory of love will bring you home\n",
             "Ra ra Rasputin\nLover of the Russian queen\nThere was a cat that really was gone\nRa ra Rasputin\nRussia's greatest love machine\nIt was a shame how he carried on",
@@ -9,7 +10,7 @@ module Sing
             "Let's get loud, let's get loud\nTurn the music up, let's do it\nC'mon people let's get loud\nLet's get loud\nTurn the music up to hear that sound\nLet's get loud, let's get loud\nAin't nobody gotta tell ya\nWhat you gotta do"].sample
     song.each_line do |line|
       sleep(1)
-      Speech.normal(line, chan)
+      normal(line, chan)
     end
   end
 
@@ -27,6 +28,6 @@ module Sing
                'I would recommend this one',
                'Okay'].sample
 
-    Speech.normal("#{comment} #{song}", chan)
+    normal("#{comment} #{song}", chan)
   end
 end
