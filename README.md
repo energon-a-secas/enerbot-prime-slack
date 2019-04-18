@@ -1,18 +1,22 @@
 # Slack-CL4P-TP
 
-Simple chat bot base on Claptrap from Borderlands. Just add the icon and give it the name and the magic will be real.
+I had the need of a simple chat bot that acted like Claptrap from Borderlands and "sing" something because hell yeah, so here it is.
+
+_Just add the icon and give it the name and the magic will be real._
 
 ## Distribution of files:
 
-### mind:
+Some functions are couple in modules inside of the following files, don't worry i don't get it either. 
 
-- Conscious: Slack Client configuration.
-- Thought: select channel and thread.
+### Mind:
+
+- Conscious: makes the Slack Client configuration.
+- Thought: Selects channel and thread when a message is send.
 - Judgment: #TODO
 - Memory: #TODO
 
  
-### will:
+### Will:
 
 - Directive: actions to execute.
 - Ethics: #TODO
