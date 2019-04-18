@@ -1,6 +1,5 @@
-# You know, because i like the Persona Franchise
-module Persona
-
+# You know, because i like the Soul Franchise
+module Soul
   def configure_client(token = ENV['CL4P_API_TOKEN'])
     Slack.configure do |config|
       config.token = token
