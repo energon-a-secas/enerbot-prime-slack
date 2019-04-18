@@ -1,6 +1,6 @@
 require 'slack-ruby-client'
+require './will'
 require './mind'
-require './soul'
 require './voice'
 require './actions/idle'
 require './actions/sing'
@@ -8,7 +8,7 @@ require './actions/dance'
 
 # Ears of Claptrap
 class CL4P
-  include Soul
+  include Conscious
   include Voice
 
   def initialize

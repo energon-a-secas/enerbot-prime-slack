@@ -1,27 +1,11 @@
 require 'slack-ruby-client'
-require './soul'
+require './mind'
 
-
-# Obtains channel, thread, ts and attachments from incoming data
-module Thought
-  def select_end(data)
-    @thread = if data.respond_to? :thread_ts
-                data.ts
-              else
-                ''
-              end
-    @channel = if data.respond_to? :channel
-                 data.channel
-               else
-                 data
-               end
-  end
-end
-
-# IT JUST WORKS
+# It should learn first to speak with the living.
 module Voice
-  include Soul
+  include Conscious
   include Thought
+
   def normal_talk(text, data)
     configure_client
     select_end(data)

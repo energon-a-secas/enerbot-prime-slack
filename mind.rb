@@ -1,15 +1,38 @@
-# Directives
-class Directive
-  def self.serve(data)
-    case data.text
-    when /no eventos/
-      Idle.quote(data)
-    when /(bail[ea]|directive three)/
-      Dance.disco(data)
-    when /canta/
-      Sing.song(data)
-    when /recomienda una canci[oó]n/
-      Sing.recommend(data)
+# You know, because i like the Persona Franchise
+module Conscious
+  def configure_client(token = ENV['CL4P_API_TOKEN'])
+    Slack.configure do |config|
+      config.token = token
+      config.raise 'Missing Bot token' unless config.token
     end
+
+    @client = Slack::RealTime::Client.new
   end
 end
+
+# Obtains channel, thread, ts and attachments from incoming data
+module Thought
+  def select_end(data)
+    @thread = if data.respond_to? :thread_ts
+                data.ts
+              else
+                ''
+              end
+    @channel = if data.respond_to? :channel
+                 data.channel
+               else
+                 data
+               end
+  end
+end
+
+module Judgment
+  # TODO
+end
+
+
+module Memory
+  # TODO
+end
+
+# Imagination
