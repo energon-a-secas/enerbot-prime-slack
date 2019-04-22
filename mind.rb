@@ -36,8 +36,19 @@ module Judgment # TODO
   # State of Mood should only affect time to respond, at least for now
   energized || calm
 
-  result = declarative_memory
-  def it_should_be_done?(result); end
+  def initialize
+    # Should be the reasoning of a five years old
+    it_must_be_done?
+    it_should_be_done?
+
+  end
+
+  # Maybe return something or at least use a custom directive
+  def it_should_be_done?
+  end
+
+  def it_must_be_done?
+  end
 end
 
 module Memory # TODO

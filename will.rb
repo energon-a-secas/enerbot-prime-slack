@@ -21,7 +21,9 @@ end
 # Mood
 
 module Mood
-  def initialize; end
+  def initialize
+    # Part of this should be done using eyes or more like senses
+  end
 
   def energized; end
 
