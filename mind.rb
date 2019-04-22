@@ -10,6 +10,8 @@ module Conscious
 
     @client = Slack::RealTime::Client.new
   end
+
+  def space_perception; end
 end
 
 # Decisions
@@ -40,15 +42,12 @@ module Judgment # TODO
     # Should be the reasoning of a five years old
     it_must_be_done?
     it_should_be_done?
-
   end
 
   # Maybe return something or at least use a custom directive
-  def it_should_be_done?
-  end
+  def it_should_be_done?; end
 
-  def it_must_be_done?
-  end
+  def it_must_be_done?; end
 end
 
 module Memory # TODO
