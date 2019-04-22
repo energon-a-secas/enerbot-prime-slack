@@ -12,7 +12,6 @@ class CL4P
   include Voice
 
   def initialize
-
     configure_client
 
     @client.on :hello do

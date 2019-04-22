@@ -16,7 +16,18 @@ class Directive
 end
 
 # Ethics
+# Patriarch
 
 # Mood
 
+module Mood
+  def initialize; end
+
+  def energized; end
+
+  def calm; end
+end
+# Base on weather report
+
 # Personality
+# Recanchero

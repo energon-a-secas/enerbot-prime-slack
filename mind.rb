@@ -1,3 +1,5 @@
+require './will'
+
 # You know, because i like the Persona Franchise
 module Conscious
   def configure_client(token = ENV['CL4P_API_TOKEN'])
@@ -10,8 +12,9 @@ module Conscious
   end
 end
 
-# Obtains channel, thread, ts and attachments from incoming data
+# Decisions
 module Thought
+  # Obtains channel, thread, ts and attachments from incoming data
   def select_end(data)
     @thread = if data.respond_to? :thread_ts
                 data.ts
@@ -26,13 +29,25 @@ module Thought
   end
 end
 
-module Judgment
-  # TODO
+module Judgment # TODO
+  extend Mood
+  extend Memory
+
+  # State of Mood should only affect time to respond, at least for now
+  energized || calm
+
+  result = declarative_memory
+  def it_should_be_done?(result); end
 end
 
+module Memory # TODO
+  def declarative_memory
+    # Things done AKA things that it learns
+  end
 
-module Memory
-  # TODO
+  def non_declarative_memory
+    # Things that it knows AKA Storage
+  end
 end
 
 # Imagination
