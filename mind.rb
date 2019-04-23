@@ -63,10 +63,10 @@ module Thought
 end
 
 module Judgment # TODO
-  extend Memory
+  #extend Memory
 
   # State of Mood should only affect time to respond, at least for now
-  energized || calm
+  #energized || calm
 
   def initialize
     new = Mood.new
