@@ -1,7 +1,9 @@
 # It does affect me
 module Temperature
   def weather_report
-    25
+    require 'open-uri'
+    temp = open("https://wttr.in/#{ENV['CL4P_LOCATION']}?m&format=%t", 'User-Agent' => 'curl/7.62.0').read
+    temp.match(/(.*?)°C/i).captures[0].to_i
   end
 
   def thermal_sensation_of(degrees)
@@ -25,5 +27,5 @@ end
 
 # Environment
 module Physical
- # Given by the user
+  # Given by the user
 end
