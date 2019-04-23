@@ -1,6 +1,4 @@
-require './will'
-
-# You know, because i like the Persona Franchise
+# I would like to use it as a "sense"
 module Conscious
   def configure_client(token = ENV['CL4P_API_TOKEN'])
     Slack.configure do |config|
@@ -11,13 +9,47 @@ module Conscious
     @client = Slack::RealTime::Client.new
   end
 
-  def space_perception; end
+  def space_perception # FIX THIS
+    25
+  end
+end
+
+# Base on the weather report, and should affect more actions than just the speed of response
+module Mood
+  extend Conscious
+  @weather = space_perception
+
+  def thermal_mood
+    degrees = thermal_sensation_of(@weather)
+    thermal_sensation_of(degrees)
+  end
+
+  def event_mood; end
+
+  def thermal_sensation_of(degrees)
+    mood = { 0..10 => 'freeze',
+             11..19 => 'cold',
+             20..27 => 'warm',
+             28..33 => 'hot',
+             34..37 => 'burn' }
+    state = mood.select { |mood| mood === degrees }.values.first
+    thermal_delay(state)
+  end
+
+  def thermal_delay(state)
+    delay = { 'freeze' => 2,
+              'cold' => 0.8,
+              'warm' => 0.1,
+              'hot' => 0.5,
+              'burn' => 1 }
+    sleep(delay[state].to_i)
+  end
 end
 
 # Decisions
 module Thought
-  # Obtains channel, thread, ts and attachments from incoming data
-  def select_end(data)
+
+  def discern_end(data)
     @thread = if data.respond_to? :thread_ts
                 data.ts
               else
@@ -32,19 +64,21 @@ module Thought
 end
 
 module Judgment # TODO
-  extend Mood
   extend Memory
 
   # State of Mood should only affect time to respond, at least for now
   energized || calm
 
   def initialize
+    new = Mood.new
     # Should be the reasoning of a five years old
     it_must_be_done?
     it_should_be_done?
   end
 
   # Maybe return something or at least use a custom directive
+
+  def when_it_should_be_done?; end
   def it_should_be_done?; end
 
   def it_must_be_done?; end
