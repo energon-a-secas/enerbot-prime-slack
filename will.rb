@@ -12,6 +12,7 @@ module Personality
 
   def critical_thinking(data)
     # p 'ur mom'
+
   end
 
 end

@@ -14,7 +14,7 @@ end
 
 # Base on the weather report, and should affect more actions than just the speed of response
 module Mood
-  extend Space_perception
+  extend Temperature
   @weather = weather_report
 
   def thermal_mood
@@ -41,26 +41,31 @@ module Thought
   end
 end
 
-module Judgment # TODO
-  #extend Memory
+class CriticalThinking
+  def initialize(data)
+    user = data.user
+    text = data.text
+    channel = data.channel
 
-  # State of Mood should only affect time to respond, at least for now
-  #energized || calm
-
-  def initialize
-    # Should be the reasoning of a five years old
-    when_it_should_be_done?
-    it_must_be_done?
-    it_should_be_done?
+    register("#{user}, #{channel}: #{text}")
   end
 
-  # Maybe return something or at least use a custom directive
+  def register(*args)
+    @var < args
+  end
 
-  def when_it_should_be_done?; end
+  def count_topics(*args)
+    tokens = args.join(" ").split(/\s/)
+    tokens.inject(Hash.new(0)) {|counts, token| counts[token] += 1; counts }
+  end
 
-  def it_should_be_done?; end
+  def popular_topics
+    count_topics(@var)
+  end
+end
 
-  def it_must_be_done?; end
+module Judgment # TODO
+
 end
 
 module Memory # TODO

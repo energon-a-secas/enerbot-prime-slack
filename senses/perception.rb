@@ -1,5 +1,5 @@
-# Cuz why not
-module Space_perception
+# It does affect me
+module Temperature
   def weather_report
     25
   end
@@ -22,4 +22,9 @@ module Space_perception
               'burn' => 1 }
     sleep(delay[state].to_i)
   end
+end
+
+# Enviroment
+module Physical
+ # Given by the user
 end
