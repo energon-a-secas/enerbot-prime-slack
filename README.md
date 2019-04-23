@@ -8,19 +8,24 @@ _Just add the icon and give it the name and the magic will be real._
 
 Some functions are couple in modules inside of the following files, don't worry i don't get it either. 
 
+## Senses
+
+### Perception
+
+- Space Perception: dedicated to thermal sensation obtain from the weather report from _.
+
 ### Mind:
 
-- Conscious: makes the Slack Client configuration.
+- Conscious: makes the proper Slack Client configuration.
 - Thought: Selects channel and thread when a message is send.
 - Judgment: #TODO
 - Memory: #TODO
-
+- Mood: event and thermal based moods, that will determine how and when it should respond.
  
 ### Will:
 
 - Directive: actions to execute.
 - Ethics: #TODO
-- Mood: #TODO
 - Personality: #TODO
 
 ## Functions:
