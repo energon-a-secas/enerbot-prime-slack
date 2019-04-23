@@ -7,11 +7,11 @@ end
 module Personality
 
   def solitude
-    # actions to take, search, learn, find topics
+    # What to do when there's nothing to do, actions to take, search, learn, find topics
   end
 
   def critical_thinking(data)
-    # What to do when there's nothing to do
+    # p 'ur mom'
   end
 
 end
