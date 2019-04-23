@@ -48,8 +48,8 @@ module Judgment # TODO
   #energized || calm
 
   def initialize
-    new = Mood.new
     # Should be the reasoning of a five years old
+    when_it_should_be_done?
     it_must_be_done?
     it_should_be_done?
   end
