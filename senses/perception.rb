@@ -4,12 +4,6 @@ module Temperature
     25
   end
 
-  def thermal_effect(degrees)
-    state = thermal_sensation_of(degrees)
-    delay = thermal_delay(state)
-    sleep(delay)
-  end
-
   def thermal_sensation_of(degrees)
     mood = { 0..10 => 'freeze',
              11..19 => 'cold',
