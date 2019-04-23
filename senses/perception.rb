@@ -4,14 +4,18 @@ module Temperature
     25
   end
 
+  def thermal_effect(degrees)
+    state = thermal_sensation_of(degrees)
+    thermal_delay(state)
+  end
+
   def thermal_sensation_of(degrees)
     mood = { 0..10 => 'freeze',
              11..19 => 'cold',
              20..27 => 'warm',
              28..33 => 'hot',
              34..37 => 'burn' }
-    state = mood.select { |mood| mood === degrees }.values.first
-    thermal_delay(state)
+    mood.select { |mood| mood === degrees }.values.first
   end
 
   def thermal_delay(state)
@@ -24,7 +28,7 @@ module Temperature
   end
 end
 
-# Enviroment
+# Environment
 module Physical
  # Given by the user
 end

@@ -18,8 +18,7 @@ module Mood
   @weather = weather_report
 
   def thermal_mood
-    degrees = thermal_sensation_of(@weather)
-    thermal_sensation_of(degrees)
+    thermal_effect(@weather)
   end
 
   def event_mood; end
