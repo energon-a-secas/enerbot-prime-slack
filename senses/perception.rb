@@ -6,7 +6,8 @@ module Temperature
 
   def thermal_effect(degrees)
     state = thermal_sensation_of(degrees)
-    thermal_delay(state)
+    delay = thermal_delay(state)
+    sleep(delay)
   end
 
   def thermal_sensation_of(degrees)
@@ -24,7 +25,7 @@ module Temperature
               'warm' => 0.1,
               'hot' => 0.5,
               'burn' => 1 }
-    sleep(delay[state].to_i)
+    delay[state].to_i
   end
 end
 
