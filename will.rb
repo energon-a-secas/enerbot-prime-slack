@@ -31,6 +31,8 @@ class Directive
       Sing.song(data)
     when /recomienda una canci[oó]n/
       Sing.recommend(data)
+    when /reporte/
+      Report.status(data)
     else
       critical_thinking(data)
     end

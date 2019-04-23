@@ -5,6 +5,7 @@ require './voice'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
+require './actions/health_check'
 
 # Ears of Claptrap
 class CL4P
