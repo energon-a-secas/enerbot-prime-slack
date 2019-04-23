@@ -48,7 +48,6 @@ end
 
 # Decisions
 module Thought
-
   def discern_end(data)
     @thread = if data.respond_to? :thread_ts
                 data.ts
@@ -79,6 +78,7 @@ module Judgment # TODO
   # Maybe return something or at least use a custom directive
 
   def when_it_should_be_done?; end
+
   def it_should_be_done?; end
 
   def it_must_be_done?; end
