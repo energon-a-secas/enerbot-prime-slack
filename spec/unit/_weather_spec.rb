@@ -8,7 +8,7 @@ describe '#Temperature' do
       @dummy_class.extend(Temperature)
     end
 
-    it { expect(@dummy_class.thermal_delay('freeze')).to eq 2 }
+    it { expect(@dummy_class.thermal_delay('extreme cold')).to eq 2 }
 
     it { expect(@dummy_class.thermal_sensation_of(22)).to eq 'warm' }
   end
