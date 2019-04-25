@@ -1,7 +1,7 @@
 require 'slack-ruby-client'
 require './mind'
 
-# It should learn first to speak with the living.
+# Message API
 module Voice
   include Conscious
   include Thought

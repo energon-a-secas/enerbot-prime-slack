@@ -7,7 +7,7 @@ require './actions/sing'
 require './actions/dance'
 require './actions/health_check'
 
-# Ears of Claptrap
+# Eternal loop
 class CL4P
   include Conscious
   include Voice

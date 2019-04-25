@@ -1,6 +1,6 @@
 require './senses/perception'
 
-# I would like to use it as a "sense"
+# Client initialization
 module Conscious
   def configure_client(token = ENV['CL4P_API_TOKEN'])
     Slack.configure do |config|
@@ -12,7 +12,7 @@ module Conscious
   end
 end
 
-# Base on the weather report, and should affect more actions than just the speed of response
+# Moody blues
 module Mood
   extend Temperature
   @weather = weather_report
@@ -26,7 +26,7 @@ module Mood
   def event_mood; end
 end
 
-# Decisions
+# Selection that should be improved
 module Thought
   def discern_end(data)
     @thread = if data.respond_to? :thread_ts
