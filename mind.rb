@@ -1,17 +1,5 @@
 require './senses/perception'
 
-# Client initialization
-module Conscious
-  def configure_client(token = ENV['CL4P_API_TOKEN'])
-    Slack.configure do |config|
-      config.token = token
-      config.raise 'Missing Bot token' unless config.token
-    end
-
-    Slack::RealTime::Client.new
-  end
-end
-
 # Moody blues
 module Mood
   extend Temperature
@@ -69,14 +57,3 @@ module Judgment # TODO
 
 end
 
-module Memory # TODO
-  def declarative_memory
-    # Things done AKA things that it learns
-  end
-
-  def non_declarative_memory
-    # Things that it knows AKA Storage
-  end
-end
-
-# Imagination
