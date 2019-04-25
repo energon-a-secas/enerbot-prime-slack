@@ -33,6 +33,8 @@ class Directive
       Sing.recommend(data)
     when /reporte/
       Report.status(data)
+    when /beneficio/
+      Recite.benefit(data)
     else
       critical_thinking(data)
     end
