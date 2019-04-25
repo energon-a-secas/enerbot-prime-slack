@@ -1,5 +1,6 @@
 require 'slack-ruby-client'
 require './mind/conscious'
+require './mind/judgment'
 
 # Message API
 module Voice
