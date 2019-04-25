@@ -5,7 +5,7 @@ require './voice'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
-require './actions/health_check'
+require './actions/report'
 
 # Eternal loop
 class CL4P
