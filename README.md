@@ -4,23 +4,30 @@ I had the need of a simple chat bot that acted like Claptrap from Borderlands an
 
 _Just add the icon and give it the name and the magic will be real._
 
-## Distribution of files:
+# Distribution of files:
 
 Some functions are couple in modules inside of the following files, don't worry i don't get it either. 
 
+## Senses
+
+### Perception
+
+- Space Perception: dedicated to thermal sensation obtain from the weather report from _.
+
+## Other stuff
+
 ### Mind:
 
-- Conscious: makes the Slack Client configuration.
+- Conscious: makes the proper Slack Client configuration.
 - Thought: Selects channel and thread when a message is send.
 - Judgment: #TODO
 - Memory: #TODO
-
+- Mood: event and thermal based moods, that will determine how and when it should respond.
  
 ### Will:
 
 - Directive: actions to execute.
 - Ethics: #TODO
-- Mood: #TODO
 - Personality: #TODO
 
 ## Functions:
@@ -60,3 +67,12 @@ module Example
   end
 end
 ``` 
+
+Variables that you should be aware of:
+
+```
+ENV['KEY']
+ENV['KEY_KEY']
+ENV['TOKEN']
+ENV['TOKEN_KEY']
+```

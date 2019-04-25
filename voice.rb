@@ -1,14 +1,14 @@
 require 'slack-ruby-client'
 require './mind'
 
-# It should learn first to speak with the living.
+# Message API
 module Voice
   include Conscious
   include Thought
 
   def normal_talk(text, data)
     configure_client
-    select_end(data)
+    discern_end(data)
     @client.web_client.chat_postMessage channel: @channel,
                                         text: text,
                                         icon_url: 'http://www.fritzhardy.com/games/borderlands_2_ps3/E19655605689AC6A24D6C76039CF748B4493BA1B.PNG',
