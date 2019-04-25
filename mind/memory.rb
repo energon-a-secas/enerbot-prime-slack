@@ -23,6 +23,13 @@ module Mongodb
     collection.drop
   end
 
+  def list_collections(database = 'rspec_db')
+    client = Mongo::Client.new(ENV['DATABASE_ADDRESS'], :database => database)
+    Mongo::Logger.logger.level = Logger::WARN
+    database = client.database
+    database.collection_names
+  end
+
   def self.retrieve
 
   end
