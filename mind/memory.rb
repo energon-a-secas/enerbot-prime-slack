@@ -2,6 +2,7 @@ require 'mongo'
 
 module Mongodb
   def new_client(database)
+    Mongo::Logger.logger.level = ::Logger::FATAL
     Mongo::Client.new(ENV['DATABASE_ADDRESS'], database: database)
   end
 
@@ -32,5 +33,9 @@ module Mongodb
     database.collection_names
   end
 
-  def self.retrieve; end
+  def retrieve(doc, coll, db = 'rspec_db')
+    client = new_client(db)
+    document = client[coll].find.distinct(doc)
+    p document
+  end
 end
