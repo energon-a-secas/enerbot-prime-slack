@@ -13,9 +13,8 @@ class CL4P
   include Voice
 
   def initialize
-    configure_client
 
-    client = @client
+    client = configure_client
 
     client.on :hello do
       # *Directive one:* Protect humanity!\n*Directive two:* Obey Lucio at all costs.\n*Directive three:* Dance!"

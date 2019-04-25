@@ -8,7 +8,7 @@ module Conscious
       config.raise 'Missing Bot token' unless config.token
     end
 
-    @client = Slack::RealTime::Client.new
+    Slack::RealTime::Client.new
   end
 end
 
