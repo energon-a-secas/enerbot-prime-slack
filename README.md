@@ -67,3 +67,12 @@ module Example
   end
 end
 ``` 
+
+Variables that you should be aware of:
+
+```
+ENV['KEY']
+ENV['KEY_KEY']
+ENV['TOKEN']
+ENV['TOKEN_KEY']
+```
