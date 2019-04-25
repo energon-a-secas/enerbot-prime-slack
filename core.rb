@@ -1,12 +1,12 @@
 require 'slack-ruby-client'
 require './will'
 require './mind'
+require './mind/conscious'
 require './voice'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
 require './actions/report'
-require './mind/conscious'
 
 # Eternal loop
 class CL4P
