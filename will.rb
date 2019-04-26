@@ -4,8 +4,8 @@ require './actions/dance'
 require './actions/report'
 require './actions/recite'
 
-#Ethics
-#Personality
+# Ethics
+# Personality
 
 class Directive
   # Will does not refer to any particular desire, but rather to the mechanism for choosing from among one's directives.
@@ -27,5 +27,3 @@ class Directive
     end
   end
 end
-
-

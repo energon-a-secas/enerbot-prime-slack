@@ -28,8 +28,8 @@ class CriticalThinking
   end
 
   def count_topics(*args)
-    tokens = args.join(" ").split(/\s/)
-    tokens.inject(Hash.new(0)) {|counts, token| counts[token] += 1; counts }
+    tokens = args.join(' ').split(/\s/)
+    tokens.each_with_object(Hash.new(0)) { |token, counts| counts[token] += 1; }
   end
 
   def popular_topics
@@ -37,4 +37,4 @@ class CriticalThinking
   end
 end
 
-#Judgment
+# Judgment
