@@ -1,9 +1,9 @@
 require './voice'
 
 # Sings something
-module Sing
+module Sing_song
   extend Voice
-  def self.song(data)
+  def self.exec(data)
     song = ["Perhaps love is like a resting place, a shelter from the storm\nIt exists to give you comfort, it is there to keep you warm\nAnd in those times of trouble when you are most alone\nThe memory of love will bring you home\n",
             "Ra ra Rasputin\nLover of the Russian queen\nThere was a cat that really was gone\nRa ra Rasputin\nRussia's greatest love machine\nIt was a shame how he carried on",
             "Mama, just killed a man\nPut a gun against his head\nPulled my trigger, now he's dead\nMama, life had just begun\nBut now I've gone and thrown it all away",
