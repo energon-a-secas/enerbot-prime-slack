@@ -6,9 +6,6 @@ require './actions/retrieve'
 require './senses/perception'
 require './will/personality'
 
-# Ethics
-# Personality
-
 # Will does not refer to any particular desire, but rather to the mechanism for choosing from among one's directives.
 class Directive
   extend Time_Space
@@ -26,7 +23,7 @@ class Directive
              /canta/ => Sing_song,
              /recomienda algo/ => Recommend_song,
              /beneficio/ => Retrieve_benefit }
-    regexp = data.text
-    func.keys.any? { |key| func[key].exec(data) if key =~ regexp }
+    text = data.text
+    func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
 end

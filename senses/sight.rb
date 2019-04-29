@@ -18,3 +18,13 @@ module Lookup
     p result
   end
 end
+
+module Slack_history
+  def last_message
+    client = configure_client
+    response = client.web_client.channels_history channel: '#bot_monitoring', count: 1
+    response.messages[0].ts
+  end
+end
+
+
