@@ -1,4 +1,5 @@
 require 'twitter'
+require './mind/conscious'
 
 module Lookup
   def last_twitter(target)
@@ -20,9 +21,17 @@ module Lookup
 end
 
 module Slack_history
-  def last_message
+  extend Conscious
+
+  def last_message(type = 'channels', channel = '', messages = 1 )
     client = configure_client
-    response = client.web_client.channels_history channel: '#bot_monitoring', count: 1
+    settings = [ channel: channel, count: messages ]
+    response = case type
+               when 'channels'
+                 client.web_client.channels_history settings
+               when 'groups'
+                 client.web_client.groups_history settings
+               end
     response.messages[0].ts
   end
 end
