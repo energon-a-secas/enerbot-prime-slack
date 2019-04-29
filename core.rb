@@ -10,10 +10,10 @@ class CL4P
 
   def initialize
     client = configure_client
+    log_channel = '#bot_monitoring'
 
     client.on :hello do
-      # *Directive one:* Protect humanity!\n*Directive two:* Obey Lucio at all costs.\n*Directive three:* Dance!"
-      normal_talk('*Client start*', '#bot_monitoring')
+      normal_talk('*Client connected*', log_channel)
     end
 
     client.on :message do |data|
@@ -21,7 +21,7 @@ class CL4P
     end
 
     client.on :closed do |_data|
-      normal_talk('*Client disconnected*', '#bot_monitoring')
+      normal_talk('*Client disconnected*', log_channel)
     end
 
     client.start!
