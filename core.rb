@@ -1,6 +1,5 @@
-require 'slack-ruby-client'
-require './directives'
 require './mind/conscious'
+require './directives'
 require './voice'
 
 # Eternal loop

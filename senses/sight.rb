@@ -23,16 +23,15 @@ end
 module Slack_history
   extend Conscious
 
-  def last_message(type = 'channels', channel = '', messages = 1 )
+  def self.last_message(type = 'channels', chan = '', mess = 1 )
     client = configure_client
-    settings = [ channel: channel, count: messages ]
     response = case type
                when 'channels'
-                 client.web_client.channels_history settings
+                 client.web_client.channels_history channel: chan, count: mess
                when 'groups'
-                 client.web_client.groups_history settings
+                 client.web_client.groups_history channel: chan, count: mess
                end
-    response.messages[0].ts
+    print response.messages[0].ts
   end
 end
 
