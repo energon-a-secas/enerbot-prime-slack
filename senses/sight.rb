@@ -35,7 +35,7 @@ module Slack_history
 
       p response.messages[0].ts
     rescue Slack::Web::Api::Errors::SlackError => e
-      p e.message
+      p 'Channel not found'
     end
 
   end
