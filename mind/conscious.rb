@@ -1,5 +1,6 @@
 require 'slack-ruby-client'
 
+# Client initialization that powers the rest of interactions
 module Conscious
   def configure_client(type = 'realtime', token = ENV['CL4P_API_TOKEN'])
     Slack.configure do |config|

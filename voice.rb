@@ -1,8 +1,8 @@
 require './mind/conscious'
 require './mind/judgment'
 
-USER_ICON = 'http://www.fritzhardy.com/games/borderlands_2_ps3/E19655605689AC6A24D6C76039CF748B4493BA1B.PNG'
-USER_NAME = 'CL4P-TP'
+USER_ICON = 'http://www.fritzhardy.com/games/borderlands_2_ps3/E19655605689AC6A24D6C76039CF748B4493BA1B.PNG'.freeze
+USER_NAME = 'CL4P-TP'.freeze
 
 # Message API
 module Voice
@@ -23,9 +23,9 @@ module Voice
     client = configure_client('web')
     discern_end(data)
     client.reactions_add channel: @channel,
-                              name: text,
-                              timestamp: @thread,
-                              icon_url: USER_ICON,
-                              username: USER_NAME
+                         name: text,
+                         timestamp: @thread,
+                         icon_url: USER_ICON,
+                         username: USER_NAME
   end
 end
