@@ -26,21 +26,6 @@ module Temperature
   end
 end
 
-module Time_Space
-  include Conscious
+module Time_Space; end
 
-  def last_message
-    configure_client
-  end
-
-  def last_activity
-    configure_client
-  end
-
-  def reasonable_hours; end
-end
-
-# Environment
-module Physical
-  # Given by the user
-end
+module Physical; end

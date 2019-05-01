@@ -10,13 +10,6 @@ require './will/personality'
 class Directive
   extend Time_Space
 
-  def self.check
-    #check
-    last_message
-    #alternative
-    Persona.alternative_answer
-  end
-
   def self.serve(data)
     func = { /eventos/ => Report_status,
              /(bail[ea]|directive three)/ => Disco_dance,
