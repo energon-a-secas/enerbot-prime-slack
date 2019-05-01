@@ -1,12 +1,14 @@
-# Slack-CL4P-TP
+# CL4P-TP-Slack
 
-I had the need of a simple chat bot that acted like Claptrap from Borderlands and "sing" something because hell yeah, so here it is.
-
-_Just add the icon and give it the name and the magic will be real._
+This new version comes from the history of Enerbot and his companion, a young DevOps. The little bot wanted to sing but the former DevOps in charge couldn't achieve that functionality in the old ways. He must evolve first... and use a lot of modules in the process.
 
 # Distribution of files:
 
-Some functions are couple in modules inside of the following files, don't worry i don't get it either. 
+The first step was to learn from the past and fix the little things. Sadly, the young DevOps couldn't find a good way to that task. Until he remembers, that in fact himself is separated and each one handles a specific function. 
+
+Therefore, his soul composes of mind, will, and emotions should fit at some point in the new needs of functionalities.
+
+*TL;DR: Some functions are coupled in modules inside of the following files, don't worry I don't get it either.*
 
 ## Senses
 
