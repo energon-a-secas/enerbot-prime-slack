@@ -1,5 +1,6 @@
 CL4P-TP-Slack
 ========
+![This software is Blessed](https://img.shields.io/badge/blessed-100%25-770493.svg)
 
 This new version comes from the history of Enerbot and his companion, a young DevOps. The little bot wanted to sing but the former DevOps in charge couldn't achieve that functionality in the old ways. He must evolve first... and use a lot of modules in the process.
 
