@@ -1,8 +1,8 @@
 require './mind/conscious'
 require './mind/judgment'
 
-USER_ICON = 'http://www.fritzhardy.com/games/borderlands_2_ps3/E19655605689AC6A24D6C76039CF748B4493BA1B.PNG'.freeze
-USER_NAME = 'CL4P-TP'.freeze
+USER_ICON = ENV['USER_ICON']
+USER_NAME = ENV['USER_NAME']
 
 # Message API
 module Voice
