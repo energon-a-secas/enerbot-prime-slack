@@ -3,13 +3,13 @@ require './directives'
 require './voice'
 
 # Eternal loop
-class CL4P
+class Core
   include Conscious
   include Voice
 
   def initialize
     client = configure_client
-    log_channel = '#bot_monitoring'
+    log_channel = ENV['SLACK_LOG_CHANNEL']
 
     client.on :hello do
       normal_talk('*Client connected*', log_channel)
@@ -26,5 +26,3 @@ class CL4P
     client.start!
   end
 end
-
-CL4P.new
