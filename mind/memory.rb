@@ -1,5 +1,6 @@
 require 'mongo'
 
+# Memory long term
 module Mongodb
   def new_client(database)
     Mongo::Logger.logger.level = ::Logger::FATAL

@@ -14,6 +14,7 @@ module Thought
   end
 end
 
+# Ignore this until i figure it out
 class CriticalThinking
   def initialize(data)
     user = data.user

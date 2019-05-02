@@ -8,6 +8,6 @@ describe '#Voice' do
       @dummy_class.extend(Voice)
     end
 
-    it { expect(@dummy_class.normal_talk('Rspec message', '#bot_monitoring').to be_a_kind_of(Array)) }
+    it { expect(@dummy_class.normal_talk('Rspec message', '#bot_monitoring').to(be_a_kind_of(Array))) }
   end
 end

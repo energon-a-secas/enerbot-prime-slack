@@ -1,44 +1,44 @@
-# Slack-CL4P-TP
+CL4P-TP-Slack
+========
+![This software is Blessed](https://img.shields.io/badge/blessed-100%25-770493.svg)
 
-I had the need of a simple chat bot that acted like Claptrap from Borderlands and "sing" something because hell yeah, so here it is.
+This new version comes from the history of Enerbot and his companion, a young DevOps. The little bot wanted to sing but the former DevOps in charge couldn't achieve that functionality in the old ways. He must evolve first... and use a lot of modules in the process.
 
-_Just add the icon and give it the name and the magic will be real._
+Distribution of files:
+---
+The first step was to learn from the past and fix the little things. Sadly, the young DevOps couldn't find a good way to that task. Until he remembers, that in fact himself is separated and each one handles a specific function. 
 
-# Distribution of files:
+Therefore, his soul that is composed of mind, will, and emotions should fit at some point in the new needs of Enerbot. Maybe.
 
-Some functions are couple in modules inside of the following files, don't worry i don't get it either. 
+*TL;DR: Some functions are coupled in modules inside of the following files, don't worry I don't get it either.*
 
-## Senses
+Mind
+---------
+- Conscious: configures and initialize the Slack Client (RealTime or Web)
+- Judgment: redirects and selection of data.
+- Memory: define the methods needed for a proper interaction with the MongoDB.
+- Mood: the weather of Santiago, Chile will impact the performance.
 
-### Perception
+Senses
+---------
 
-- Space Perception: dedicated to thermal sensation obtain from the weather report from _.
-
-## Other stuff
-
-### Mind:
-
-- Conscious: makes the proper Slack Client configuration.
-- Thought: Selects channel and thread when a message is send.
-- Judgment: #TODO
-- Memory: #TODO
-- Mood: event and thermal based moods, that will determine how and when it should respond.
+- Perception:
+- Sight:
  
-### Will:
-
+Will:
+---------
 - Directive: actions to execute.
-- Ethics: #TODO
-- Personality: #TODO
 
-## Functions:
+And the rest:
+---------
 
-
-
-### voice:
+voice:
+---------
 
 - Voice: defines the client interaction with Slack to post messages.
 
-## Actions:
+Actions:
+---------
 
 Under the directory of 'actions', the defined actions (ruby scripts) must be included on the core file and include de module of voice.
 
@@ -67,12 +67,3 @@ module Example
   end
 end
 ``` 
-
-Variables that you should be aware of:
-
-```
-ENV['KEY']
-ENV['KEY_KEY']
-ENV['TOKEN']
-ENV['TOKEN_KEY']
-```
