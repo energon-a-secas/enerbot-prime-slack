@@ -3,7 +3,7 @@ require './directives'
 require './voice'
 
 # Eternal loop
-class Main
+class Core
   include Conscious
   include Voice
 
