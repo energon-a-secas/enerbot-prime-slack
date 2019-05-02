@@ -1,9 +1,6 @@
 require './mind/conscious'
 require './mind/judgment'
 
-USER_ICON = ENV['USER_ICON']
-USER_NAME = ENV['USER_NAME']
-
 # Message API
 module Voice
   include Conscious
@@ -14,8 +11,8 @@ module Voice
     discern_end(data)
     client.web_client.chat_postMessage channel: @channel,
                                        text: text,
-                                       icon_url: USER_ICON,
-                                       username: USER_NAME,
+                                       icon_url: ENV['SLACK_BOT_ICON'],
+                                       username: ENV['SLACK_BOT_NAME'],
                                        thread_ts: @thread
   end
 
@@ -25,7 +22,7 @@ module Voice
     client.reactions_add channel: @channel,
                          name: text,
                          timestamp: @thread,
-                         icon_url: USER_ICON,
-                         username: USER_NAME
+                         icon_url: ENV['SLACK_BOT_ICON'],
+                         username: ENV['SLACK_BOT_NAME']
   end
 end

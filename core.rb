@@ -1,3 +1,4 @@
+require 'envyable'
 require './mind/conscious'
 require './directives'
 require './voice'
@@ -9,7 +10,7 @@ class CL4P
 
   def initialize
     client = configure_client
-    log_channel = '#bot_monitoring'
+    log_channel = ENV['SLACK_LOG_CHANNEL']
 
     client.on :hello do
       normal_talk('*Client connected*', log_channel)
@@ -27,4 +28,6 @@ class CL4P
   end
 end
 
+
+Envyable.load('config/env.yml', 'production')
 CL4P.new
