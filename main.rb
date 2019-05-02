@@ -1,10 +1,9 @@
-require 'envyable'
 require './mind/conscious'
 require './directives'
 require './voice'
 
 # Eternal loop
-class CL4P
+class Main
   include Conscious
   include Voice
 
@@ -27,7 +26,3 @@ class CL4P
     client.start!
   end
 end
-
-
-Envyable.load('config/env.yml', 'production')
-CL4P.new
