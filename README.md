@@ -24,46 +24,71 @@ Senses
 
 - Perception:
 - Sight:
- 
-Will:
----------
-- Directive: actions to execute.
 
 And the rest:
 ---------
 
-voice:
----------
-
+- Client: loads the `yml.cnf` file under config that sets the variables with the specified environment (development, staging, and production) and initialize the `main.rb`.
+- Directives: defines the modules (scripts) added to the bot and the regex need it to execute them.
+- Main: the beautiful loop that it's listening constantly on Slack.
 - Voice: defines the client interaction with Slack to post messages.
 
-Actions:
+How to define an action:
 ---------
 
-Under the directory of 'actions', the defined actions (ruby scripts) must be included on the core file and include de module of voice.
+Create under the directory of 'actions' the script that you wanted, let's say `example.rb`, this file must be defined like this:
 
 ```
-class Directive
-  def self.serve(data)
-    case data.text
-    when /example1/
-      # (...)
-    when /regex_for_invoke_the_new_script/
-      Example.demo(data)
-    end
-  end
-end
-```
-
-```
+# example.rb
 require './voice'
 
-# When there's nothing to say, say something
+# Description of what this module does.
 module Example
   extend Voice
-  def self.demo(data)
+  def self.exec(data)
     text = 'hello is the demo'
     normal_talk(text, data)
   end
 end
-``` 
+```
+
+When you require the file 'voice' it's for using the functions defined inside of it. In a normal case, you will be using the "normal_talk" method that requires two arguments:
+
+- Text: this should be the result provided by the script o just send some text to slack when matching the desired criteria.
+- Data: is passed as an obligatory argument because it contains the data provided by slack, that includes; text, channel, user, timestamp and a lot more. You should worry about this because data is handled by the Voice module.
+
+And you should be asking yourself, where do I put the criteria to respond with my script?
+
+Well, in the 'Directive' file, you would need to include the file that you added and then define inside of the hash (func) the regex and the name of the module. In a short way, it should look like this:
+
+```
+require './actions/sing'
+require './actions/dance'
+
+class Directive
+  def self.serve(data)
+    func = { /(bail[ea]|directive three)/ => Disco_dance,
+             /canta/ => Sing_song }
+    text = data.text
+    func.keys.any? { |key| func[key].exec(data) if key =~ text }
+  end
+end
+```
+
+Then you add your the require with the path of the file, and then set the matching criteria with the module name inside the hash.
+
+```
+require './actions/sing'
+require './actions/dance'
+require './actions/example'
+
+class Directive
+  def self.serve(data)
+    func = { /(bail[ea]|directive three)/ => Disco_dance,
+             /canta/ => Sing_song,
+             /matching criteria/ => Example }
+    text = data.text
+    func.keys.any? { |key| func[key].exec(data) if key =~ text }
+  end
+end
+```
