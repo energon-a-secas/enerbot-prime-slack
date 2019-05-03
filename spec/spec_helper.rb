@@ -1,5 +1,6 @@
-ENV['SLACK_BOT_NAME'] = 'AIGIS-RSPEC'
-ENV['SLACK_BOT_ICON'] = 'https://i.imgur.com/IDfAU28.jpg'
+require 'envyable'
+
+Envyable.load('config/env.yml', 'staging')
 
 class DummyClass
 end
