@@ -59,7 +59,9 @@ When you require the file 'voice' it's for using the functions defined inside of
 
 And you should be asking yourself, where do I put the criteria to respond with my script?
 
-Well, in the 'Directive' file, you would need to include the file that you added and then define inside of the hash (func) the regex and the name of the module. In a short way, it should look like this:
+Inside of the 'Directive' file, you must include the file that you added and then define inside of the hash (func) the regex and the name of the module.
+
+In a short way, it should look like this:
 
 ```
 require './actions/sing'
@@ -75,7 +77,7 @@ class Directive
 end
 ```
 
-Then you add your the require with the path of the file, and then set the matching criteria with the module name inside the hash.
+After you add the require with the path of the file, and set the matching criteria with the module name inside the hash, like this:
 
 ```
 require './actions/sing'
