@@ -28,10 +28,15 @@ Senses
 And the rest:
 ---------
 
-- Client: loads the `yml.cnf` file under config that sets the variables with the specified environment (development, staging, and production) and initialize the `main.rb`.
+- Client: loads the 'yml.cnf' file under config that sets the variables with the specified environment (development, staging, and production) and initialize the 'main.rb'.
 - Directives: defines the modules (scripts) added to the bot and the regex need it to execute them.
 - Main: the beautiful loop that it's listening constantly on Slack.
 - Voice: defines the client interaction with Slack to post messages.
+
+How to configure the bot:
+---------
+
+The file 'client.rb' use the Enviable gem that helps you to configure environment variables from your favorite YAML file. There's an example inside the config directory called 'yml.cnf.example'. Define your variables on a new yml.cnf in the same directory and you are good to go.
 
 How to define an action:
 ---------
