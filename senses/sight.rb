@@ -23,7 +23,7 @@ end
 module Slack_history
   extend Conscious
 
-  def last_message(chan, mess = 1, type = 'channels')
+  def last_message(chan = ENV['SLACK_BASE_CHANNEL'], mess = 1, type = 'channels')
     client = configure_client
     begin
       response = case type
