@@ -15,7 +15,11 @@ class Directive
              /(bail[ea]|directive three)/ => Disco_dance,
              /canta/ => Sing_song,
              /recomienda algo/ => Recommend_song,
-             /beneficio/ => Retrieve_benefit }
+             /beneficio/ => Retrieve_benefit,
+             /fake status/ => Retrieve_status,
+             /dame una excusa/ => Retrieve_excuse,
+             /frase bronce/ => Retrieve_bronce,
+             /dame un consejo/ => Retrieve_advice}
     text = data.text
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
