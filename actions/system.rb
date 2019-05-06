@@ -14,11 +14,10 @@ module System_status
   end
 end
 
-# Retrieve most recent timestamps of messages from specified channel. Options: channel, quantity (Default: 1 message), and channel type (groups or channels) (Default: channels)
+# Retrieve most recent timestamps of messages from specified channel. Options: channel (Default: SLACK_BASE_CHANNEL), quantity (Default: 1 message), and channel type (groups or channels) (Default: channels)
 module System_history
-  def self.exec(text)
-    text.match(/(#.*) (\n.*) (\w)/)
-    last_message('#comunidad-seguridad')
+  def self.exec
+    last_message
   end
 end
 
