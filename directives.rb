@@ -11,9 +11,9 @@ class Directive
     text = data.text
     case text
     when /^\\/
-      Directive.serve(text, data)
-    when /aigis/
       Directive.system(text, data)
+    when /aigis/
+      Directive.serve(text, data)
     end
   end
 

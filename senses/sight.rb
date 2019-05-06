@@ -21,7 +21,7 @@ module Lookup
 end
 
 module Slack_history
-  extend Conscious
+  include Conscious
 
   def last_message(chan = ENV['SLACK_BASE_CHANNEL'], mess = 1, type = 'channels')
     client = configure_client
