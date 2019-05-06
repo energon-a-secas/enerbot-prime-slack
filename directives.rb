@@ -31,7 +31,8 @@ class Directive
 
   def self.system(text, data)
     func = { /(events|eventos)/ => System_status,
-             /last message/ => System_history }
+             /last message/ => System_history,
+             /(send)/ => System_resp}
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
 end
