@@ -1,9 +1,6 @@
 require './mind/conscious'
 require './mind/judgment'
 
-BOT_ICON = ENV['SLACK_BOT_ICON']
-BOT_NAME = ENV['SLACK_BOT_NAME']
-
 # Message API
 module Voice
   include Conscious
