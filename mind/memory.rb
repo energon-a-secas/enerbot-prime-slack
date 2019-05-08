@@ -34,7 +34,7 @@ module Mongodb
     database.collection_names
   end
 
-  def retrieve(doc, coll, db = 'rspec_db')
+  def retrieve(doc, coll = 'phrases', db = 'quote')
     client = new_client(db)
     document = client[coll].find.distinct(doc)
     p document

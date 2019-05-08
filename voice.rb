@@ -1,9 +1,6 @@
 require './mind/conscious'
 require './mind/judgment'
 
-BOT_ICON = ENV['SLACK_BOT_ICON']
-BOT_NAME = ENV['SLACK_BOT_NAME']
-
 # Message API
 module Voice
   include Conscious
@@ -19,12 +16,11 @@ module Voice
                                        thread_ts: @thread
   end
 
-  def add_reaction(text, data)
+  def add_reaction(text, channel, thread)
     client = configure_client('web')
-    discern_end(data)
-    client.reactions_add channel: @channel,
+    client.reactions_add channel: channel,
                          name: text,
-                         timestamp: @thread,
+                         timestamp: thread,
                          icon_url: ENV['SLACK_BOT_ICON'],
                          username: ENV['SLACK_BOT_NAME']
   end

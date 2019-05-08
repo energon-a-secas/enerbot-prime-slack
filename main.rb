@@ -16,7 +16,7 @@ class Core
     end
 
     client.on :message do |data|
-      Directive.serve(data)
+      Directive.listen(data)
     end
 
     client.on :closed do |_data|
