@@ -1,7 +1,7 @@
 require './voice'
 
 # Sings something
-module Sing_song
+module SingSong
   def self.exec(data)
     extend Voice
     song = ["Perhaps love is like a resting place, a shelter from the storm\nIt exists to give you comfort, it is there to keep you warm\nAnd in those times of trouble when you are most alone\nThe memory of love will bring you home\n",
@@ -15,7 +15,7 @@ module Sing_song
   end
 end
 
-module Recommend_song
+module RecommendSong
   def self.exec(data)
     extend Voice
     song = ['https://youtu.be/Q91hydQRGyM', 'https://youtu.be/GuJQSAiODqI', 'https://youtu.be/KiRyiVgWj6g',

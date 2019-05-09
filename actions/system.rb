@@ -3,7 +3,7 @@ require './senses/perception'
 require './senses/sight'
 
 # When there's nothing to say, say the first thing that comes from your hash
-module System_status
+module SystemStatus
   extend Voice
   extend Temperature
 
@@ -17,7 +17,7 @@ end
 
 # Retrieve most recent timestamps of messages from specified channel.
 # Options: channel (Default: SLACK_BASE_CHANNEL), quantity (Default: 1 message), and channel type (groups or channels) (Default: channels)
-module System_history
+module SystemHistory
   extend Voice
   extend Slack_history
 
@@ -27,7 +27,8 @@ module System_history
   end
 end
 
-module System_resp
+# Behold the wonders of artificial intelligence
+module SystemResp
   extend Voice
 
   def self.exec(data)
@@ -38,7 +39,8 @@ module System_resp
   end
 end
 
-module System_hi
+# Say hi in the coolest way
+module SystemHi
   extend Voice
 
   def self.exec(data)
