@@ -29,6 +29,7 @@ class Directive
     func = { /(hol[ai]|hello|hi)/ => ResponseHi,
              /hor[oó]scopo/i => SearchHoroscope,
              /(bail[ea]|directive three)/ => DiscoDance,
+             /sismo/ => SearchEarthquakes,
              /pwned email/ => SearchHaveIBeen,
              /analiza/ => SearchWebSecurity,
              /canta/ => SingSong,
