@@ -37,3 +37,12 @@ module System_resp
     normal_talk(text, channel)
   end
 end
+
+module System_hi
+  extend Voice
+
+  def self.exec(data)
+    text = "Good morning, <@#{data.user}>. What will your first sequence of the day be?"
+    normal_talk(text, data)
+  end
+end
