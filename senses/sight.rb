@@ -4,10 +4,10 @@ require './mind/conscious'
 module Lookup
   def last_twitter(target)
     config = {
-      consumer_key:        ENV['KEY'],
-      consumer_secret:     ENV['KEY_KEY'],
-      access_token:        ENV['TOKEN'],
-      access_token_secret: ENV['TOKEN_KEY']
+      consumer_key:        ENV['TWITTER_CONSUMER_KEY'],
+      consumer_secret:     ENV['TWITTER_CONSUMER_SECRET'],
+      access_token:        ENV['TWITTER_TOKEN_KEY'],
+      access_token_secret: ENV['TWITTER_TOKEN_SECRET']
     }
 
     client = Twitter::REST::Client.new(config)
