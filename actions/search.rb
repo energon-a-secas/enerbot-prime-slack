@@ -42,7 +42,8 @@ end
 
 module SearchWebSecurity
   extend Voice
-  def self.check(data)
+
+  def self.exec(data)
     url = data.text.split[2].split('|')[1].chomp('>')
     uri = "https://sitecheck.sucuri.net/api/v2/?scan=#{url}"
 
@@ -50,7 +51,7 @@ module SearchWebSecurity
     recommendations = analyse['RECOMMENDATIONS']['LIST']
     string_analysed = 'NINGUN WARNING, FELICITACIONES :clap2:'
 
-    if analisis['RECOMMENDATIONS'].key?('LIST')
+    if analyse['RECOMMENDATIONS'].key?('LIST')
       string_analysed = "WARNINGS \n "
       recommendations.each do |x|
         string_analysed += ":warning: #{x} \n"
