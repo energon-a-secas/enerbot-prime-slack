@@ -10,7 +10,7 @@ module System_status
   def self.exec(data)
     temperature = weather_report
     feeling = thermal_sensation_of(temperature)
-    text = "My system is extreme #{feeling}, it's #{temperature} outside"
+    text = "My system is #{feeling}, it's #{temperature} outside"
     normal_talk(text, data)
   end
 end
