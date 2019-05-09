@@ -10,7 +10,7 @@ module System_status
   def self.exec(data)
     temperature = weather_report
     feeling = thermal_sensation_of(temperature)
-    text = "I'm #{feeling}, it's #{temperature} outside"
+    text = "My system is #{feeling}, it's #{temperature} outside"
     normal_talk(text, data)
   end
 end
@@ -22,7 +22,7 @@ module System_history
   extend Slack_history
 
   def self.exec(data)
-    timestamp = last_message()
+    timestamp = last_message('text')
     normal_talk(timestamp, data)
   end
 end
