@@ -28,7 +28,6 @@ class Directive
   def self.serve(text, data)
     func = { /(hol[ai]|hello|hi)/ => ResponseHi,
              /hor[oó]scopo/i => SearchHoroscope,
-             /eventos/ => SystemStatus,
              /(bail[ea]|directive three)/ => DiscoDance,
              /pwned email/ => SearchHaveIBeen,
              /analiza/ => SearchWebSecurity,
