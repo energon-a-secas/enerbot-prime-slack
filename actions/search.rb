@@ -1,12 +1,12 @@
 require './voice'
+require 'json'
+require 'net/http'
 
 # Module dedicated to Security
-module Search_horoscope
+module SearchHoroscope
   extend Voice
-  def self.exec(data)
-    require 'json'
-    require 'net/http'
 
+  def self.exec(data)
     option = data.text.split[2]
     sign = %w[aries
               tauro
@@ -36,6 +36,22 @@ module Search_horoscope
            else
              "[WARN] Intentalo pero con mas ganas y verifica que #{option} sea un signo."
            end
+    normal_talk(text, data)
+  end
+end
+
+# Earthquakes
+module SearchEarthquakes
+  extend Voice
+
+  def self.exec(data)
+    api = JSON.parse(Net::HTTP.get(URI('https://chilealerta.com/api/query/?user=demo&select=ultimos_sismos&country=chile')))
+    chile = api['ultimos_sismos_chile'][0]
+    text = <<-HEREDOC
+    :clock1: *Hora:* #{chile['chilean_time']}
+    :earth_americas: *Ubicación:* #{chile['reference']}
+    :triggered_energon: *Magnitud:* #{chile['magnitude']}
+    HEREDOC
     normal_talk(text, data)
   end
 end

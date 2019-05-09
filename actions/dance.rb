@@ -1,7 +1,7 @@
 require './voice'
 
 # When there's nothing to say, say something
-module Disco_dance
+module DiscoDance
   extend Voice
   def self.exec(data)
     type = ['https://imgur.com/gallery/pAlNA0x'].sample

@@ -1,7 +1,7 @@
 require './mind/memory'
 require './voice'
 
-module Retrieve_benefit
+module RetrieveBenefit
   extend Mongodb
   extend Voice
 
@@ -11,7 +11,7 @@ module Retrieve_benefit
   end
 end
 
-module Retrieve_status
+module RetrieveStatus
   extend Mongodb
   extend Voice
 
@@ -21,7 +21,7 @@ module Retrieve_status
   end
 end
 
-module Retrieve_excuse
+module RetrieveExcuse
   extend Mongodb
   extend Voice
 
@@ -31,7 +31,7 @@ module Retrieve_excuse
   end
 end
 
-module Retrieve_bronce
+module RetrieveBronce
   extend Mongodb
   extend Voice
 
@@ -41,7 +41,7 @@ module Retrieve_bronce
   end
 end
 
-module Retrieve_advice
+module RetrieveAdvice
   extend Mongodb
   extend Voice
 

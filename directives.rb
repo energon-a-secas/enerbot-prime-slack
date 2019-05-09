@@ -26,24 +26,24 @@ class Directive
   end
 
   def self.serve(text, data)
-    func = { /(hol[ai]|hello|hi)/ => Response_hi,
-             /hor[oó]scopo/i => Search_horoscope,
-             /eventos/ => System_status,
-             /(bail[ea]|directive three)/ => Disco_dance,
-             /canta/ => Sing_song,
-             /recomienda algo/ => Recommend_song,
-             /beneficio/ => Retrieve_benefit,
-             /dame una excusa/ => Retrieve_excuse,
-             /frase bronce/ => Retrieve_bronce,
-             /dame un consejo/ => Retrieve_advice }
+    func = { /(hol[ai]|hello|hi)/ => ResponseHi,
+             /hor[oó]scopo/i => SearchHoroscope,
+             /eventos/ => SystemStatus,
+             /(bail[ea]|directive three)/ => DiscoDance,
+             /canta/ => SingSong,
+             /recomienda algo/ => RecommendSong,
+             /beneficio/ => RetrieveBenefit,
+             /dame una excusa/ => RetrieveExcuse,
+             /frase bronce/ => RetrieveBronce,
+             /dame un consejo/ => RetrieveAdvice }
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
 
   def self.system(text, data)
-    func = { /(hol[ai]|hello|hi)/ => System_hi,
-             /(events|eventos)/ => System_status,
-             /last message/ => System_history,
-             /(send)/ => System_resp }
+    func = { /(hol[ai]|hello|hi)/ => SystemHi,
+             /(events|eventos)/ => SystemStatus,
+             /last message/ => SystemHistory,
+             /(send)/ => SystemResp }
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
 end

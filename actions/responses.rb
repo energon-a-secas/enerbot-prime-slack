@@ -1,7 +1,7 @@
 require './voice'
 
 # When there's nothing to say, say something
-module Response_hi
+module ResponseHi
   extend Voice
   def self.exec(data)
     text = 'holi'
