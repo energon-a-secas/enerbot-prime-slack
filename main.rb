@@ -8,8 +8,9 @@ class Core
   include Voice
 
   def initialize
-    client = configure_client
     log_channel = ENV['SLACK_LOG_CHANNEL']
+
+    client = configure_client
 
     client.on :hello do
       normal_talk('*Client connected*', log_channel)

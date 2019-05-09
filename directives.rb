@@ -1,4 +1,4 @@
-require './will/personality'
+require './mind/mood'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
@@ -7,13 +7,17 @@ require './actions/retrieve'
 
 # Will does not refer to any particular desire, but rather to the mechanism for choosing from among one's directives.
 class Directive
+  extend Mood
 
   def self.check(data)
+    bot_name = ENV['SLACK_BOT_NAME']
     text = data.text
+
     case text
     when /^\\/
       Directive.system(text, data)
-    when /aigis/
+    when /#{bot_name}/i
+      thermal_impact
       Directive.serve(text, data)
     end
   end
