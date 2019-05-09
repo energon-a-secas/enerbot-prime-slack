@@ -30,6 +30,8 @@ class Directive
              /hor[oó]scopo/i => SearchHoroscope,
              /eventos/ => SystemStatus,
              /(bail[ea]|directive three)/ => DiscoDance,
+             /pwned email/ => SearchHaveIBeen,
+             /analiza/ => SearchWebSecurity,
              /canta/ => SingSong,
              /recomienda algo/ => RecommendSong,
              /beneficio/ => RetrieveBenefit,
