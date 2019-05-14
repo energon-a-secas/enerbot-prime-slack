@@ -1,5 +1,10 @@
-.gem/
+# Files
+.gem
+.idea
 test.rb
+
+# rbenv config for version 2.5.3
+.ruby-version
 
 # Don't check in credentials 
 config/env.yml
