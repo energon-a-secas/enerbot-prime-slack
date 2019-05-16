@@ -1,10 +1,10 @@
-require './mind/conscious'
+require './mind/consciousness'
 require './directives'
 require './voice'
 
 # Eternal loop
 class Core
-  include Conscious
+  include Consciousness
   include Voice
 
   def initialize

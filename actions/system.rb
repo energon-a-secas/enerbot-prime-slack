@@ -22,7 +22,7 @@ module SystemHistory
   extend Slack_history
 
   def self.exec(data)
-    timestamp = last_message('text')
+    timestamp = last_message('time')
     normal_talk(timestamp, data)
   end
 end

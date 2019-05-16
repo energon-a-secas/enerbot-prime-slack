@@ -1,9 +1,9 @@
-require './mind/conscious'
+require './mind/consciousness'
 require './mind/judgment'
 
 # Message API
 module Voice
-  include Conscious
+  include Consciousness
   include Thought
 
   def normal_talk(text, data)

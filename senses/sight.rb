@@ -1,5 +1,5 @@
 require 'twitter'
-require './mind/conscious'
+require './mind/consciousness'
 
 module Lookup
   def last_twitter(target)
@@ -21,7 +21,7 @@ module Lookup
 end
 
 module Slack_history
-  include Conscious
+  include Consciousness
 
   def last_message(format = 'time', chan = ENV['SLACK_BASE_CHANNEL'], quantity = 1, type = 'channels')
     client = configure_client
