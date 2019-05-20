@@ -20,8 +20,6 @@ class Directive
     text = data.text
     user = data.user
 
-    p data
-
     case text
     when /^\\/
       Directive.system(text, data) if privileges_check(user)
