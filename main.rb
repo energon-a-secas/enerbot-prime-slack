@@ -17,7 +17,7 @@ class Core
     end
 
     client.on :message do |data|
-      Directive.check(data)
+      Thread.new { Directive.check(data) }
     end
 
     client.on :closed do |_data|

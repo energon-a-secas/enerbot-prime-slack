@@ -16,6 +16,11 @@ end
 
 module Security
   def privileges_check(user)
-    ENV['SLACK_BOT_ADMINS'].include? user
+    begin
+      ENV['SLACK_BOT_ADMINS'].include? user
+    rescue NoMethodError => e
+      print "You probably didn't set the SLACK_BOT_ADMINS variable. Error: #{e.message}"
+      return false
+    end
   end
 end
