@@ -10,9 +10,9 @@ module Consciousness
 
     case type
     when 'realtime'
-      Slack::RealTime::Client.new
+      @configure_client ||= Slack::RealTime::Client.new
     when 'web'
-      Slack::Web::Client.new
+      @configure_client ||= Slack::Web::Client.new
     end
   end
 end
