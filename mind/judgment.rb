@@ -14,28 +14,13 @@ module Thought
   end
 end
 
-# Ignore this until i figure it out
-class CriticalThinking
-  def initialize(data)
-    user = data.user
-    text = data.text
-    channel = data.channel
-
-    register("#{user}, #{channel}: #{text}")
-  end
-
-  def register(*args)
-    @var < args
-  end
-
-  def count_topics(*args)
-    tokens = args.join(' ').split(/\s/)
-    tokens.each_with_object(Hash.new(0)) { |token, counts| counts[token] += 1; }
-  end
-
-  def popular_topics
-    count_topics(@var)
+module Security
+  def privileges_check(user)
+    begin
+      ENV['SLACK_BOT_ADMINS'].include? user
+    rescue NoMethodError => e
+      print "You probably didn't set the SLACK_BOT_ADMINS variable. Error: #{e.message}"
+      return false
+    end
   end
 end
-
-# Judgment
