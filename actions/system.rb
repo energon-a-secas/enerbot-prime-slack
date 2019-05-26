@@ -32,9 +32,15 @@ module SystemResp
   extend Voice
 
   def self.exec(data)
-    match = data.text.match(/(\\send)\s(.*)\s(.*)/i)
-    channel = match.captures[1]
-    text = match.captures[2]
+    match = data.text.match(/^\\send\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
+    unless match.nil?
+      channel = match.captures[2] || match.captures[3]
+      text = match.captures[5]  
+      check_ts = channel.match(/(.*):(\d*\.\d*)/)
+      unless check.nil?
+        thread = check_ts.captures[1]
+      end
+    end
     normal_talk(text, channel)
   end
 end
