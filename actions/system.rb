@@ -37,7 +37,8 @@ module SystemResp
       channel = match.captures[2] || match.captures[3]
       text = match.captures[5]  
       check_ts = channel.match(/(.*):(\d*\.\d*)/)
-      unless check.nil?
+      # Useless... until someone find something
+      unless check_ts.nil?
         thread = check_ts.captures[1]
       end
     end
