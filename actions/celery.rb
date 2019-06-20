@@ -25,15 +25,15 @@ module CeleryMan
     when /oyster/i
       normal_talk('https://i.gifer.com/4fwu.gif', data)
       sleep(1)
-      cinco = ">I have a BETA sequence\n>I have been working on\n>Would you like to see it?"
+      cinco = ":terminal: *I have a BETA sequence*\n:terminal: *I have been working on*\n:terminal: *Would you like to see it?*"
       sleep(2)
       cinco.each_line do |line|
         sleep(1)
         normal_talk(line, data)
       end
-      sleep(3)
-      resp = last_message('text', data.channel, 1, 'groups')
-      p resp
+      begin
+        resp = last_message('text', data.channel, 1, 'groups')
+      end until resp =~ /(no|yes)/
       text = if resp.include? 'yes'
                'https://i.gifer.com/3zzS.gif'
              else
