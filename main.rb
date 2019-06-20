@@ -17,6 +17,7 @@ class Core
     end
 
     client.on :message do |data|
+      # TODO CRON DEL CRON ASYNC
       Thread.new { Directive.check(data) }
     end
 

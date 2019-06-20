@@ -7,6 +7,7 @@ require './actions/system'
 require './actions/retrieve'
 require './actions/responses'
 require './actions/search'
+require './actions/celery'
 require './actions/help'
 
 # Will does not refer to any particular desire,
@@ -31,8 +32,9 @@ class Directive
 
   def self.serve(text, data)
     func = { /(ayuda|help)/ => SystemHelp,
-             /(hol[ai]|hello|hi)/ => ResponseHi,
+             /(hol[ai]|hello|hi|love)/ => ResponseHi,
              /hor[oó]scopo/i => SearchHoroscope,
+             /(oyster|celery)/ => CeleryMan,
              /(bail[ea]|directive three)/ => DiscoDance,
              /sismo/ => SearchEarthquakes,
              /pwned email/ => SearchHaveIBeen,
