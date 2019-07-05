@@ -8,7 +8,7 @@ module ResponseHi
            when 'holi'
              'Holiwis'
            when /i love you/
-             'I love you 3000'
+             "I love you #{rand 10000}"
            end
 
     normal_talk(text, data)
