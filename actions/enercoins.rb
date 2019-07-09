@@ -4,8 +4,8 @@ require './mind/memory'
 require './voice'
 
 def get_values(text)
-  value = text.match(/^<@(.*?)>\s(\+\+|--|check)$/i)
-  [value.captures[0], value.captures[1]]
+  value = text.match(/^<@(.*?)>\s(\+\+|--|check)\s(.*)/i)
+  [value.captures[0], value.captures[1], value.captures[2]]
 end
 
 # Get points to brag in front of your friends
@@ -14,21 +14,13 @@ module Enercoins
   extend Voice
 
   def self.exec(data)
-    user, type = get_values(data.text)
-    if type =~ /(\+\+|--)/
-      update(user, type, data)
-    else
-      check(user, data)
-    end
-  end
+    user, type, motive = get_values(data.text)
 
-  def self.check(user, data)
-    quantity = check_coins(user)
-    normal_talk("<@#{user}> has #{quantity} enercoins", data)
-  end
-
-  def self.update(user, type, data)
-    total_coins = update_coins(user, type, data)
-    normal_talk("<@#{user}> has #{total_coins} enercoins", data)
+    total = if type =~ /(\+\+|--)/
+              update_coins(user, type, motive, data)
+            else
+              check_coins(user)
+            end
+    normal_talk("<@#{user}> has #{total} enercoins", data)
   end
 end

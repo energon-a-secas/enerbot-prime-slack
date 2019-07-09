@@ -44,27 +44,30 @@ module FireOps
     p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
     p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
-    case
-    when user == current_call
+    if user == current_call
       false
-    when current_call == last_call
+    elsif current_call == last_call
       minutes = current_call_ts - last_call_ts
       true if minutes >= 400
     else
       true
     end
-
   end
 
-  def update_coins(user, type, data)
+  def update_coins(user, type, motive, data)
     coins = check_coins(user)
     new_coins = resolve(coins, type)
 
+    ts = Time.now.strftime('%s')
     firebase = client
-    firebase.update('enercoin',
-                    "#{user}/coin" => new_coins,
-                    "#{user}/user" => data.user,
-                    "#{user}/ts" => data.ts) if secure_coins(user, data)
+    if secure_coins(user, data)
+      firebase.update('enercoin',
+                      "#{user}/coin" => new_coins,
+                      "#{user}/user" => data.user,
+                      "#{user}/history/#{ts}/action" => type,
+                      "#{user}/history/#{ts}/motive" => motive,
+                      "#{user}/ts" => data.ts)
+    end
     check_coins(user)
   end
 end
