@@ -28,7 +28,7 @@ module Enercoins
   end
 
   def self.update(user, type, data)
-    update_coins(user, type)
-    normal_talk("<@#{user}> has #{check_coins(user)} enercoins", data)
+    total_coins = update_coins(user, type)
+    normal_talk("<@#{user}> has #{total_coins} enercoins", data)
   end
 end
