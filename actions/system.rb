@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './voice'
 require './senses/perception'
 require './senses/sight'
@@ -35,12 +37,10 @@ module SystemResp
     match = data.text.match(/^\\send\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
     unless match.nil?
       channel = match.captures[2] || match.captures[3]
-      text = match.captures[5]  
+      text = match.captures[5]
       check_ts = channel.match(/(.*):(\d*\.\d*)/)
       # Useless... until someone find something
-      unless check_ts.nil?
-        thread = check_ts.captures[1]
-      end
+      thread = check_ts.captures[1] unless check_ts.nil?
     end
     normal_talk(text, channel)
   end

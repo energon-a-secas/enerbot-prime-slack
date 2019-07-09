@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 
 # It does affect me
 module Temperature
   def weather_report
-    temp = open("https://wttr.in/Santiago?m&format=%t", 'User-Agent' => 'curl/7.62.0').read
+    temp = open('https://wttr.in/Santiago?m&format=%t', 'User-Agent' => 'curl/7.62.0').read
     temp.match(/(.*?)°C/i).captures[0].to_i
   end
 

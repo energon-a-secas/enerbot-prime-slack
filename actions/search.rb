@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './voice'
 require 'json'
 require 'net/http'
@@ -61,7 +63,6 @@ module SearchWebSecurity
     normal_talk(string_analysed, data)
   end
 end
-
 
 # Earthquakes
 module SearchEarthquakes

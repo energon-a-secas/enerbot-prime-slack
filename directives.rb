@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require './mind/mood'
 require './mind/judgment'
 require './actions/idle'
 require './actions/sing'
 require './actions/dance'
 require './actions/system'
-require './actions/retrieve'
 require './actions/responses'
 require './actions/search'
 require './actions/celery'
 require './actions/help'
+require './actions/enercoins'
 
 # Will does not refer to any particular desire,
 # but rather to the mechanism for choosing from among one's directives.
@@ -27,6 +29,8 @@ class Directive
     when /#{bot_name}/i
       thermal_impact
       Directive.serve(text, data)
+    when /<@(.*?)>\s(\+\+|--|check)/
+      Enercoins.exec(data)
     end
   end
 
