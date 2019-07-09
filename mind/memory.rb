@@ -31,12 +31,37 @@ module FireOps
     coin.body
   end
 
-  def update_coins(user, type)
+  def secure_coins(user_to, data)
+    firebase = client
+    last_call = firebase.get("enercoin/#{user_to}/user").body
+    last_call_ts = firebase.get("enercoin/#{user_to}/ts").body
+    calling_user = data.user
+
+    p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
+    p "Llamada actual por #{calling_user} con un TS de #{data.ts}"
+
+    case
+    when user_to == calling_user
+      false
+    when calling_user == last_call
+      minutes = data.ts.to_i - last_call_ts.to_i
+      true if minutes >= 400
+    else
+      true
+    end
+
+  end
+
+  def update_coins(user, type, data)
     coins = check_coins(user)
+    new_coins = resolve(coins, type)
+
+
     firebase = client
     firebase.update('enercoin',
-                    "#{user}/coin" => resolve(coins, type),
-                    "#{user}/ts" => Time.now.strftime('%H:%M:%S').to_s)
+                    "#{user}/coin" => new_coins,
+                    "#{user}/user" => data.user,
+                    "#{user}/ts" => data.ts) if secure_coins(user, data)
     check_coins(user)
   end
 end
