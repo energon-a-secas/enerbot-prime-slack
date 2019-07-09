@@ -10,6 +10,7 @@ module FireOps
   end
 
   def resolve(val, action)
+    p val
     case action
     when '++' then val + 1
     when '--' then val - 1
@@ -17,7 +18,6 @@ module FireOps
       val
     end
   end
-
 
   def fire_get(user, path)
     firebase = client
@@ -31,9 +31,9 @@ module FireOps
   end
 
   def check_coins(user)
-    coin = fire_get(user, 'coins')
-    create_user(user) if coin.body.nil?
-    coin.body
+    coins = fire_get(user, 'coin')
+    create_user(user) if coins.nil?
+    fire_get(user, 'coin')
   end
 
   def secure_coins(user, data)
@@ -61,6 +61,8 @@ module FireOps
     coins = check_coins(user)
     new_coins = resolve(coins, type)
 
+    p coins
+    p new_coins
 
     firebase = client
     firebase.update('enercoin',
