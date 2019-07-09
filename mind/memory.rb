@@ -60,9 +60,6 @@ module FireOps
     coins = check_coins(user)
     new_coins = resolve(coins, type)
 
-    p coins
-    p new_coins
-
     firebase = client
     firebase.update('enercoin',
                     "#{user}/coin" => new_coins,
