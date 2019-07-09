@@ -4,7 +4,7 @@
 require 'firebase'
 
 module FireOps
-  def client(base_uri = 'https://energon-dev.firebaseio.com/', json = './firebase.json')
+  def client(base_uri = ENV['FIREBASE_ENDPOINT'], json = './firebase.json')
     key = File.open(json).read
     Firebase::Client.new(base_uri, key)
   end
