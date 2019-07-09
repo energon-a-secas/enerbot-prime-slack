@@ -18,33 +18,38 @@ module FireOps
     end
   end
 
-  def self.create_user(user)
+
+  def fire_get(user, path)
+    firebase = client
+    firebase.get("enercoin/#{user}/#{path}").body
+  end
+
+  def create_user(user)
     firebase = client
     firebase.update('enercoin',
                     "#{user}/coin" => 0)
   end
 
   def check_coins(user)
-    firebase = client
-    coin = firebase.get("enercoin/#{user}/coin")
+    coin = fire_get(user, 'coins')
     create_user(user) if coin.body.nil?
     coin.body
   end
 
-  def secure_coins(user_to, data)
-    firebase = client
-    last_call = firebase.get("enercoin/#{user_to}/user").body
-    last_call_ts = firebase.get("enercoin/#{user_to}/ts").body
-    calling_user = data.user
+  def secure_coins(user, data)
+    last_call = fire_get(user, 'user')
+    last_call_ts = fire_get(user, 'ts').to_i
+    current_call = data.user
+    current_call_ts = data.ts.to_i
 
     p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
-    p "Llamada actual por #{calling_user} con un TS de #{data.ts}"
+    p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
     case
-    when user_to == calling_user
+    when user == current_call
       false
-    when calling_user == last_call
-      minutes = data.ts.to_i - last_call_ts.to_i
+    when current_call == last_call
+      minutes = current_call_ts - last_call_ts
       true if minutes >= 400
     else
       true
