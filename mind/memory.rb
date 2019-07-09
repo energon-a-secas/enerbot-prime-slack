@@ -10,7 +10,6 @@ module FireOps
   end
 
   def resolve(val, action)
-    p val
     case action
     when '++' then val + 1
     when '--' then val - 1
