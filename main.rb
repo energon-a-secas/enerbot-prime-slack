@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './mind/consciousness'
 require './directives'
 require './voice'
@@ -17,7 +19,7 @@ class Core
     end
 
     client.on :message do |data|
-      # TODO CRON DEL CRON ASYNC
+      # TODO: CRON DEL CRON ASYNC
       Thread.new { Directive.check(data) }
     end
 
