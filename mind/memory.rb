@@ -1,42 +1,42 @@
-require 'mongo'
+# frozen_string_literal: true
 
-# Memory long term
-module Mongodb
-  def new_client(database)
-    Mongo::Logger.logger.level = ::Logger::FATAL
-    Mongo::Client.new(ENV['DATABASE_ADDRESS'], database: database)
+# Firebase methods
+require 'firebase'
+
+module FireOps
+  def client(base_uri = 'https://energon-dev.firebaseio.com/', json = './firebase.json')
+    key = File.open(json).read
+    Firebase::Client.new(base_uri, key)
   end
 
-  def add_document(knowledge, registry = '', coll = 'ai', db = 'experience')
-    client = new_client(db)
-    collection = client[coll]
-    doc = { registry => knowledge }
-    result = collection.insert_one(doc)
-    result.n
+  def resolve(val, action)
+    case action
+    when '++' then val + 1
+    when '--' then val - 1
+    else
+      val
+    end
   end
 
-  def delete_document(knowledge, registry, coll = 'rspec_coll', db = 'rspec_db')
-    client = new_client(db)
-    collection = client[coll]
-    result = collection.delete_one(registry => knowledge)
-    result.deleted_count
+  def self.create_user(user)
+    firebase = client
+    firebase.update('enercoin',
+                    "#{user}/coin" => 0)
   end
 
-  def drop_collection(coll = 'rspec_coll', db = 'rspec_db')
-    client = new_client(db)
-    collection = client[coll]
-    collection.drop
+  def check_coins(user)
+    firebase = client
+    coin = firebase.get("enercoin/#{user}/coin")
+    create_user(user) if coin.body.nil?
+    coin.body
   end
 
-  def list_collections(db = 'rspec_db')
-    client = new_client(db)
-    database = client.database
-    database.collection_names
-  end
-
-  def retrieve(doc, coll = 'phrases', db = 'quote')
-    client = new_client(db)
-    document = client[coll].find.distinct(doc)
-    p document
+  def update_coins(user, type)
+    coins = check_coins(user)
+    firebase = client
+    firebase.update('enercoin',
+                    "#{user}/coin" => resolve(coins, type),
+                    "#{user}/ts" => Time.now.strftime('%H:%M:%S').to_s)
+    check_coins(user)
   end
 end
