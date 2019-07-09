@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require './voice'
 
 # When there's nothing to say, say something
@@ -8,7 +10,7 @@ module ResponseHi
            when 'holi'
              'Holiwis'
            when /i love you/
-             "I love you #{rand 10000}"
+             "I love you #{rand 10_000}"
            end
 
     normal_talk(text, data)

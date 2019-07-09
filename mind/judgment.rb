@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Selection that should be improved
 module Thought
   def discern_end(data)

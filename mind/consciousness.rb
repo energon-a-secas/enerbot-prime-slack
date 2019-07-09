@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'slack-ruby-client'
 
 # Client initialization that powers the rest of interactions
