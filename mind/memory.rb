@@ -2,8 +2,10 @@
 
 # Firebase methods
 require 'firebase'
+require './voice'
 
 module FireOps
+  include Voice
   def client(base_uri = ENV['FIREBASE_ENDPOINT'], json = './config/firebase.json')
     key = File.open(json).read
     Firebase::Client.new(base_uri, key)
@@ -45,12 +47,16 @@ module FireOps
     p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
     if user == current_call
-      false
+      [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
     elsif current_call == last_call
       minutes = current_call_ts - last_call_ts
-      true if minutes >= 400
+      if minutes >= 400
+                [true, '']
+              else
+                [false, ":bank: Tienes que esperar un rato antes de poder dar más Enercoins"]
+              end
     else
-      true
+      [true, ":bank: Balance de EnerCoins: #{check_coins(user) + 1}"]
     end
   end
 
@@ -60,7 +66,8 @@ module FireOps
 
     ts = Time.now.strftime('%s')
     firebase = client
-    if secure_coins(user, data)
+    check, text = secure_coins(user, data)
+    if check
       firebase.update('enercoin',
                       "#{user}/coin" => new_coins,
                       "#{user}/user" => data.user,
@@ -68,6 +75,8 @@ module FireOps
                       "#{user}/history/#{ts}/motive" => motive,
                       "#{user}/ts" => data.ts)
     end
-    check_coins(user)
+
+    normal_talk(text, data)
+
   end
 end
