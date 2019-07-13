@@ -11,15 +11,15 @@ module RetrieveBenefit
   end
 end
 
-module RetrieveStatus
-  extend FirebaseOps
-  extend Voice
-
-  def self.exec(data)
-    doc = get_data('status', 'quotes')[:status]
-    normal_talk(doc.sample, data)
-  end
-end
+# module RetrieveStatus
+#   extend FirebaseOps
+#   extend Voice
+#
+#   def self.exec(data)
+#     doc = get_data('status', 'quotes')[:status]
+#     normal_talk(doc.sample, data)
+#   end
+# end
 
 module RetrieveExcuse
   extend FirebaseOps
