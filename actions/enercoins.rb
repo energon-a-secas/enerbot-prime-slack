@@ -28,7 +28,9 @@ module Enercoins
     if type =~ /(\+\+|--)/
       coin, text = update_coins(user, type, motive, data)
       message = "#{text}#{coin}"
-
+    else
+      coin = check_account(user)
+      message = ":bank: Balance de enercoins cuenta: #{coin}"
     end
 
     normal_talk(message, data)
