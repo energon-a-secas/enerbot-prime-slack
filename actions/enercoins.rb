@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './mind/memory'
 require './voice'
 def get_values(text)

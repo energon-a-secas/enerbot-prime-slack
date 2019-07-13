@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './voice'
 require 'json'
 require 'net/http'

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './voice'
 
 # When there's nothing to say, say the first thing that comes from your hash
