@@ -1,28 +1,30 @@
-require 'firebase'
+require 'google/cloud/firestore'
 
+# Modules for Firestore operations
 module FirebaseOps
-
   def new_client
-    key = File.open('./config/firebase.json').read
-    Firebase::Client.new(ENV['FIREBASE_ENDPOINT'], key)
+    Google::Cloud::Firestore.new
   end
 
-  def get_data(user, path = '', db = 'enercoin')
-    firebase = new_client
-    firebase.get("#{db}/#{user}/#{path}").body
+  def get_data(user, _path = '', db = 'enercoins')
+    firestore = new_client
+    document = firestore.doc "#{db}/#{user}"
+    document.get
   end
 
   def update_data(user, coins = 0, type = 0, motive = 0, slack_user = 0, slack_ts = 0)
     ts = Time.now.strftime('%s')
-    firebase = new_client
-    update = firebase.update('enercoin',
-                             "#{user}/coin" => coins,
-                             "#{user}/user" => slack_user,
-                             "#{user}/history/#{ts}/action" => type,
-                             "#{user}/history/#{ts}/user" => slack_user,
-                             "#{user}/history/#{ts}/motive" => motive,
-                             "#{user}/ts" => slack_ts)
-    update.success?
+    firestore = new_client
+
+    coins_update = firestore.doc("enercoins/#{user}")
+    coins_update.set('coin' => coins,
+                     'slack_user' => slack_user,
+                     'slack_ts' => slack_ts)
+
+    history_update = firestore.doc("enercoins/#{user}/history/#{ts}")
+    history_update.set("history/#{ts}/action" => type,
+                       "history/#{ts}/user" => slack_user,
+                       "history/#{ts}/motive" => motive)
   end
 
   def new_balance(coins, action)
@@ -36,13 +38,13 @@ module FirebaseOps
 
   def check_account(user)
     account = get_data(user)
-    update_data(user) if account.nil?
-    get_data(user, 'coin')
+    update_data(user) if account.missing?
+    get_data(user)[:coin]
   end
 
   def check_permissions(user, slack_user, slack_ts)
-    last_call = get_data(user, 'user')
-    last_call_ts = get_data(user, 'ts').to_i
+    last_call = get_data(user)[:user]
+    last_call_ts = get_data(user)[:ts].to_i
     current_call = slack_user
     current_call_ts = slack_ts
     minutes = current_call_ts - last_call_ts
@@ -50,12 +52,11 @@ module FirebaseOps
     p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
     p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
-    case
-    when user == current_call
+    if user == current_call
       [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
-    when current_call == last_call
+    elsif current_call == last_call
       if minutes <= 120
-        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime("%M:%S")}-02:00 :clock1:"]
+        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime('%M:%S')}-02:00 :clock1:"]
       else
         [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
       end
@@ -69,11 +70,7 @@ module FirebaseOps
     updated_coins = new_balance(current_coins, type)
     approved_transaction, text = check_permissions(user, data.user, data.ts.to_i)
 
-    check = update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
-    if check == true
-      [updated_coins, "#{text}"]
-    else
-      [nil, text]
-    end
+    update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
+    [updated_coins, text.to_s]
   end
 end
