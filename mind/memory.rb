@@ -6,9 +6,9 @@ module FirebaseOps
     Google::Cloud::Firestore.new
   end
 
-  def get_data(user, _path = '', db = 'enercoins')
+  def get_data(path, db = 'enercoins')
     firestore = new_client
-    document = firestore.doc "#{db}/#{user}"
+    document = firestore.doc "#{db}/#{path}"
     document.get
   end
 
