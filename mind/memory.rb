@@ -7,9 +7,9 @@ module FirebaseOps
     Firebase::Client.new(ENV['FIREBASE_ENDPOINT'], key)
   end
 
-  def get_data(user, path = '')
+  def get_data(user, path = '', db = 'enercoin')
     firebase = new_client
-    firebase.get("enercoin/#{user}/#{path}").body
+    firebase.get("#{db}/#{user}/#{path}").body
   end
 
   def update_data(user, coins = 0, type = 0, motive = 0, slack_user = 0, slack_ts = 0)
@@ -19,6 +19,7 @@ module FirebaseOps
                              "#{user}/coin" => coins,
                              "#{user}/user" => slack_user,
                              "#{user}/history/#{ts}/action" => type,
+                             "#{user}/history/#{ts}/user" => slack_user,
                              "#{user}/history/#{ts}/motive" => motive,
                              "#{user}/ts" => slack_ts)
     update.success?
@@ -48,14 +49,13 @@ module FirebaseOps
 
     p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
     p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
-    p "#{last_call_ts} - #{current_call_ts} = #{current_call_ts - last_call_ts}"
-    p minutes
+
     case
     when user == current_call
       [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
     when current_call == last_call
-      if minutes <= 300
-        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime("%M:%S")}-05:00 :clock1:"]
+      if minutes <= 120
+        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime("%M:%S")}-02:00 :clock1:"]
       else
         [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
       end
@@ -70,7 +70,6 @@ module FirebaseOps
     approved_transaction, text = check_permissions(user, data.user, data.ts.to_i)
 
     check = update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
-    p check
     if check == true
       [updated_coins, "#{text}"]
     else
