@@ -54,13 +54,13 @@ module FirebaseOps
     when user == current_call
       [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
     when current_call == last_call
-      if minutes <= 400
-        [false, ':bank: No puedes hacer tantas transacciones... gratis :clock1:']
+      if minutes <= 300
+        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime("%M:%S")}-05:00 :clock1:"]
       else
-        [true, ':bank: Tu total es de: ']
+        [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
       end
     else
-      [true, ':bank: Tu total es de: ']
+      [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
     end
   end
 
@@ -72,7 +72,7 @@ module FirebaseOps
     check = update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
     p check
     if check == true
-      [updated_coins, text]
+      [updated_coins, "#{text}"]
     else
       [nil, text]
     end
