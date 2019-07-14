@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require './mind/mood'
 require './mind/judgment'
 require './actions/idle'
@@ -7,6 +5,7 @@ require './actions/sing'
 require './actions/dance'
 require './actions/system'
 require './actions/responses'
+require './actions/retrieve'
 require './actions/search'
 require './actions/celery'
 require './actions/help'

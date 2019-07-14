@@ -1,54 +1,52 @@
-# frozen_string_literal: true
-
 require './mind/memory'
 require './voice'
 
 module RetrieveBenefit
-  extend Mongodb
+  extend FirebaseOps
   extend Voice
 
   def self.exec(data)
-    doc = retrieve('benefit')
+    doc = get_data('benefit', 'quotes')[:benefit]
     normal_talk(doc.sample, data)
   end
 end
 
-module RetrieveStatus
-  extend Mongodb
-  extend Voice
-
-  def self.exec(data)
-    doc = retrieve('status')
-    normal_talk(doc.sample, data)
-  end
-end
+# module RetrieveStatus
+#   extend FirebaseOps
+#   extend Voice
+#
+#   def self.exec(data)
+#     doc = get_data('status', 'quotes')[:status]
+#     normal_talk(doc.sample, data)
+#   end
+# end
 
 module RetrieveExcuse
-  extend Mongodb
+  extend FirebaseOps
   extend Voice
 
   def self.exec(data)
-    doc = retrieve('excuse')
+    doc = get_data('excuse', 'quotes')[:excuse]
     normal_talk(doc.sample, data)
   end
 end
 
 module RetrieveBronce
-  extend Mongodb
+  extend FirebaseOps
   extend Voice
 
   def self.exec(data)
-    doc = retrieve('bronce')
+    doc = get_data('bronze', 'quotes')[:bronze]
     normal_talk(doc.sample, data)
   end
 end
 
 module RetrieveAdvice
-  extend Mongodb
+  extend FirebaseOps
   extend Voice
 
   def self.exec(data)
-    doc = retrieve('advice')
+    doc = get_data('advice', 'quotes')[:advice]
     normal_talk(doc.sample, data)
   end
 end
