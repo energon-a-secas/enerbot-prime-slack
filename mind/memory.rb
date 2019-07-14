@@ -42,21 +42,21 @@ module FirebaseOps
     get_data(user)[:coin]
   end
 
-  def check_permissions(user, slack_user, slack_ts)
+  def check_permissions(user, current_call, current_call_ts)
     last_call = get_data(user)[:user]
     last_call_ts = get_data(user)[:ts].to_i
-    current_call = slack_user
-    current_call_ts = slack_ts
     minutes = current_call_ts - last_call_ts
+    time_left = 120 - minutes
+    time_now = Time.at(time_left).strftime('%M:%S')
 
-    p "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
-    p "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
+    # "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
+    # "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
     if user == current_call
       [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
     elsif current_call == last_call
       if minutes <= 120
-        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo en fila #{Time.at(minutes).strftime('%M:%S')}-02:00 :clock1:"]
+        [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo restante en fila #{time_now} :clock1:"]
       else
         [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
       end
