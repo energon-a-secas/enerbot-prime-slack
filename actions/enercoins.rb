@@ -1,18 +1,9 @@
 require './mind/memory'
 require './voice'
+
 def get_values(text)
-  begin
-    value = text.match(/^<@(.*?)>\s(\+\+|--|check)\s(.*)/i)
-
-    user = value.captures[0]
-    type = value.captures[1]
-    motive = value.captures[2]
-
+    user, type, motive = text.match(/^<@(.*?)>.*(\+\+|--|balance)(.*)/ix).try(:captures)
     [user, type, motive]
-  rescue NoMethodError
-
-  end
-
 end
 
 # Get points to brag in front of your friends
