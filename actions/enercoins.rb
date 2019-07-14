@@ -15,11 +15,11 @@ module Enercoins
       message = "#{text}#{coin}"
     else
       coin = check_account(user)
-      if data.user == user
-        message = ":bank: Tu balance de Enercoins es: #{coin}"
-      else
-        message = ":bank: El balance de Enercoins de <@#{user}> es: #{coin}"
-      end
+      message = if data.user == user
+                  ":bank: Tu balance de Enercoins es: #{coin}"
+                else
+                  ":bank: El balance de Enercoins de <@#{user}> es: #{coin}"
+                end
     end
 
     normal_talk(message, data)
