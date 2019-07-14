@@ -1,10 +1,6 @@
 require './mind/memory'
+require './mind/language'
 require './voice'
-
-def get_values(text)
-    user, type, motive = text.match(/^<@(.*?)>.*(\+\+|--|balance)(.*)/ix).try(:captures)
-    [user, type, motive]
-end
 
 # Get points to brag in front of your friends
 module Enercoins
@@ -12,7 +8,7 @@ module Enercoins
   extend Voice
 
   def self.exec(data)
-    user, type, motive = get_values(data.text)
+    user, type, motive = coin_transaction(data.text)
 
     if type =~ /(\+\+|--)/
       coin, text = update_coins(user, type, motive, data)
