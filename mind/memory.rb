@@ -46,8 +46,8 @@ module FirebaseOps
     last_call = get_data(user)[:user]
     last_call_ts = get_data(user)[:ts].to_i
     minutes = current_call_ts - last_call_ts
-    time_left = 120 - minutes
-    time_now = Time.at(time_left).strftime('%M:%S')
+    time_to_wait = 120
+    time_now = Time.at(time_to_wait - minutes).strftime('%M:%S')
 
     # "Ultima llamada por #{last_call} con un TS de #{last_call_ts}"
     # "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
@@ -55,7 +55,7 @@ module FirebaseOps
     if user == current_call
       [false, ':bank: No puedes darte enercoins a ti mismo :peyo:']
     elsif current_call == last_call
-      if minutes <= 120
+      if minutes <= time_to_wait
         [false, ":bank: No puedes hacer tantas transacciones... gratis. Tiempo restante en fila #{time_now} :clock1:"]
       else
         [true, ":bank: Enercoins actualizados, <@#{user}> ahora tiene "]
