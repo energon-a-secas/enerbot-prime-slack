@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 require_relative '../spec_helper'
-require './actions/enercoins'
+require './mind/language'
 
-describe '#getData' do
+describe '#coin_transaction' do
   context 'when data is passed' do
 
     it { expect(get_values("<@rspec_test> ++ For testing")).to eq ['rspec_test', '++', ' For testing'] }
