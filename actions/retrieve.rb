@@ -26,8 +26,8 @@ module RetrieveExcuse
   extend Voice
 
   def self.exec(data)
-    doc = get_data('excuse', 'quotes')[:excuse]
-    normal_talk(doc.sample, data)
+    doc = get_col('excuses')
+    normal_talk(doc.to_s, data)
   end
 end
 
@@ -36,8 +36,8 @@ module RetrieveBronce
   extend Voice
 
   def self.exec(data)
-    doc = get_data('bronze', 'quotes')[:bronze]
-    normal_talk(doc.sample, data)
+    doc = get_col('bronze')
+    normal_talk(doc, data)
   end
 end
 
