@@ -3,7 +3,7 @@
 source 'https://rubygems.org' do
   gem 'envyable'
   gem 'faye-websocket'
-  gem 'firebase'
+  gem 'google-cloud-firestore'
   gem 'rubocop'
   gem 'slack-ruby-client'
   gem 'twitter'
