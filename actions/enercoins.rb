@@ -4,12 +4,14 @@ require './voice'
 
 # Get points to brag in front of your friends
 module Enercoins
+  extend Vocal_Mimicry
   extend FirebaseOps
   extend Voice
 
   def self.exec(data)
     user, type, motive = coin_transaction(data.text)
 
+    p user, type, motive
     if type =~ /(\+\+|--)/
       coin, text = update_coins(user, type, motive, data)
       message = "#{text}#{coin}"

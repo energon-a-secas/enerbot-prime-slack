@@ -43,8 +43,8 @@ module FirebaseOps
   end
 
   def check_permissions(user, current_call, current_call_ts)
-    last_call = get_data(user)[:user]
-    last_call_ts = get_data(user)[:ts].to_i
+    last_call = get_data(user)[:slack_user]
+    last_call_ts = get_data(user)[:slack_ts].to_i
     minutes = current_call_ts - last_call_ts
     time_to_wait = 120
     time_now = Time.at(time_to_wait - minutes).strftime('%M:%S')

@@ -28,7 +28,7 @@ class Directive
     when /#{bot_name}/i
       thermal_impact
       Directive.serve(text, data)
-    when /<@(.*?)>\s(\+\+|--|check)/
+    when /<@(.*?)>.*(\+\+|--|balance)/
       Enercoins.exec(data)
     end
   end
