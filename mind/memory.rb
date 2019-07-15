@@ -12,6 +12,14 @@ module FirebaseOps
     document.get
   end
 
+  def get_col(collection)
+    firestore = new_client
+    quote_col = firestore.col(collection)
+    quotes = []
+    quote_col.get { |entry| quotes << entry[:texto] }
+    quotes.sample
+  end
+
   def update_data(user, coins = 0, type = 0, motive = 0, slack_user = 0, slack_ts = 0)
     ts = Time.now.strftime('%s')
     firestore = new_client
