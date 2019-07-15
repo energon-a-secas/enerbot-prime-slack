@@ -11,17 +11,15 @@ module Enercoins
   def self.exec(data)
     user, type, motive = coin_transaction(data.text)
 
-    p user, type, motive
-    if type =~ /(\+\+|--)/
-      coin, text = update_coins(user, type, motive, data)
-      message = "#{text}#{coin}"
-    else
-      coin = check_account(user)
-      message = if data.user == user
-                  ":bank: Tu balance de Enercoins es: #{coin}"
-                else
-                  ":bank: El balance de Enercoins de <@#{user}> es: #{coin}"
-                end
+    message = case type
+              when /(\+\+|--)/
+                coin, text, result = update_coins(user, type, motive, data)
+                result == true ? "#{text}#{coin}" : text
+              when /(balance)/
+                coin = check_account(user)
+                self_balance = ":bank: Tu balance de Enercoins es: #{coin}"
+                others_balance = ":bank: El balance de Enercoins de <@#{user}> es: #{coin}"
+                data.user == user ? self_balance : others_balance
     end
 
     normal_talk(message, data)
