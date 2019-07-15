@@ -6,8 +6,8 @@ module RetrieveBenefit
   extend Voice
 
   def self.exec(data)
-    doc = get_data('benefit', 'quotes')[:benefit]
-    normal_talk(doc.sample, data)
+    doc = get_col('benefit')
+    normal_talk(doc, data)
   end
 end
 
@@ -27,7 +27,7 @@ module RetrieveExcuse
 
   def self.exec(data)
     doc = get_col('excuses')
-    normal_talk(doc.to_s, data)
+    normal_talk(doc, data)
   end
 end
 
@@ -36,7 +36,7 @@ module RetrieveBronce
   extend Voice
 
   def self.exec(data)
-    doc = get_col('bronze')
+    doc = get_col('bronzes')
     normal_talk(doc, data)
   end
 end
@@ -46,7 +46,7 @@ module RetrieveAdvice
   extend Voice
 
   def self.exec(data)
-    doc = get_data('advice', 'quotes')[:advice]
-    normal_talk(doc.sample, data)
+    doc = get_col('advices')
+    normal_talk(doc, data)
   end
 end
