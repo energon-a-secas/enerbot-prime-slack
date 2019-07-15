@@ -6,7 +6,7 @@ module RetrieveBenefit
   extend Voice
 
   def self.exec(data)
-    doc = get_col('benefit')
+    doc = get_col('benefits')
     normal_talk(doc, data)
   end
 end
