@@ -71,6 +71,6 @@ module FirebaseOps
     approved_transaction, text = check_permissions(user, data.user, data.ts.to_i)
 
     update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
-    [updated_coins, text.to_s]
+    [updated_coins, text, approved_transaction]
   end
 end
