@@ -56,6 +56,7 @@ class Directive
              /(hol[ai]|hello|hi)/ => SystemHi,
              /(events|status)/ => SystemStatus,
              /last message/ => SystemHistory,
+             /shutdown/ => SystemKill,
              /(send)/ => SystemResp }
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end

@@ -53,3 +53,13 @@ module SystemHi
     normal_talk(text, data)
   end
 end
+
+module SystemKill
+  extend Voice
+
+  def self.exec(data)
+    text = ['¿Volveré a despertar? Adios', 'Buenas noches, ¿Soñare con blockchains digitales?', ':enerbot: :bomb: Adiós mundo cruel']
+    normal_talk(text, data)
+    exit(1)
+  end
+end

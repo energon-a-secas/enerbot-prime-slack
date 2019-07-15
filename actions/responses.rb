@@ -9,6 +9,8 @@ module ResponseHi
              'Holiwis'
            when /i love you/
              "I love you #{rand 10_000}"
+           else
+             ':ocean:'
            end
 
     normal_talk(text, data)
