@@ -84,6 +84,8 @@ end
 
 After you add the require with the path of the file, and set the matching criteria with the module name inside the hash, like this:
 
+
+
 ```
 require './actions/sing'
 require './actions/dance'
@@ -98,4 +100,7 @@ class Directive
     func.keys.any? { |key| func[key].exec(data) if key =~ text }
   end
 end
+
+
+
 ```
