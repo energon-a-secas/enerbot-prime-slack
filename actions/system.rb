@@ -59,7 +59,7 @@ module SystemKill
 
   def self.exec(data)
     text = ['¿Volveré a despertar? Adios', 'Buenas noches, ¿Soñare con blockchains digitales?', ':enerbot: :bomb: Adiós mundo cruel']
-    normal_talk(text, data)
+    normal_talk(text.shuffle![0], data)
     exit(1)
   end
 end
