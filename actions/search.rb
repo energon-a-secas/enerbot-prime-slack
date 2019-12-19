@@ -1,6 +1,7 @@
 require './voice'
 require 'json'
 require 'net/http'
+require 'date'
 
 # Module dedicated to Security
 module SearchHoroscope
