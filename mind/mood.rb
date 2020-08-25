@@ -10,6 +10,4 @@ module Mood
     p "Report: my state is #{state} and gives me a delay of #{delay} seconds"
     sleep(delay)
   end
-
-  def event_mood; end
 end

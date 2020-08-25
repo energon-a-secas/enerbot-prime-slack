@@ -2,10 +2,9 @@
 .gem
 .idea
 test.rb
+config/*
 
 # rbenv config for version 2.5.3
 .ruby-version
 
 # Don't check in credentials 
-config/env.yml
-config/firebase.json

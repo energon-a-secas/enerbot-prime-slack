@@ -1,6 +1,6 @@
 require './voice'
 
-# Sings something
+### help: *< sing | canta >*
 module SingSong
   def self.exec(data)
     extend Voice
@@ -15,6 +15,7 @@ module SingSong
   end
 end
 
+### help: recomienda una canción
 module RecommendSong
   def self.exec(data)
     extend Voice

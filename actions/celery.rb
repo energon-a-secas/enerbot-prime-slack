@@ -1,6 +1,8 @@
 require './voice'
 require './senses/sight'
 
+### help: *< celery | tayne | oyster | hat wobble | flarhgunnstow | 4d3d3d3 >* --- Deberías saber que significa cada una de estas funciones.
+### help: *< oyster >* *< yes | no >* --- Activa el modo interactivo Celery.
 module CeleryMan
   extend Voice
   extend Slack_history
@@ -32,9 +34,11 @@ module CeleryMan
         normal_talk(line, data)
       end
       begin
-        resp = last_message('text', data.channel, 1, 'groups')
-      end until resp =~ /(no|yes)/
-      text = if resp.include? 'yes'
+        message = last_message('text', data.channel, 1, 'groups')
+        user = last_message('user', data.channel, 1, 'groups')
+        p user
+      end until message =~ /(no|yes)/ && data.user == user
+      text = if message.include? 'yes'
                'https://i.gifer.com/3zzS.gif'
              else
                'ok'

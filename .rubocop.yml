@@ -1,5 +1,2 @@
-AllCops:
-  DisplayCopNames: true
-
 Style/FrozenStringLiteralComment:
   Enabled: false

@@ -4,6 +4,7 @@ require 'net/http'
 require 'date'
 
 # Module dedicated to Security
+### help: horóscopo *< signo >* --- Enerbot utilizará sus contactos en la televisión para traerte las mejores predicciones del día.
 module SearchHoroscope
   extend Voice
 
@@ -63,53 +64,49 @@ module SearchWebSecurity
   end
 end
 
-# Earthquakes
+### help: haarp --- Entrega información sobre temblores/terremotos recientes en Chile.
 module SearchEarthquakes
   extend Voice
 
   def self.exec(data)
     api = JSON.parse(Net::HTTP.get(URI('https://chilealerta.com/api/query/?user=demo&select=ultimos_sismos&country=chile')))
     chile = api['ultimos_sismos_chile'][0]
-    text = <<-HEREDOC
-    :clock1: *Hora:* #{chile['chilean_time']}
-    :earth_americas: *Ubicación:* #{chile['reference']}
-    :triggered_energon: *Magnitud:* #{chile['magnitude']}
-    HEREDOC
+    text = ":clock1: *Hora:* #{chile['chilean_time']}\n:earth_americas: *Ubicación:* #{chile['reference']}\n:triggered_energon: *Magnitud:* #{chile['magnitude']}"
     normal_talk(text, data)
   end
 end
 
-# Module for search elements in Have I Been Pwned
-module SearchHaveIBeen
-  extend Voice
-  def self.exec(data)
-    if (match = data.text.match(/pwned email ((.*)\|)?(.*?)(\>)?$/i))
-      email = match.captures[2]
-    end
-
-    message = "No info for #{email}"
-    if email
-      http = Net::HTTP.new('haveibeenpwned.com', 443)
-      http.use_ssl = true
-      req = Net::HTTP::Get.new("/api/v2/breachedaccount/#{email}", 'User-Agent' => 'enerbot-hibp-email')
-      res = http.request(req)
-
-      if res.code == '200'
-        breaches = JSON.parse(res.body)
-        plural = breaches.length > 1 ? 's' : ''
-        message = "El email \"#{email}\" ha sido listado en *#{breaches.length}* brecha#{plural} :\n"
-        breaches.each do |breach|
-          domain = breach['Domain'].empty? ? 'Lista de SPAM' : breach['Domain']
-          message += "\t:rotating_light: #{breach['Title']} (#{domain}) #{breach['BreachDate']}\n"
-        end
-        message += "\nTe recomiendo que cambies tus contraseñas (sugiero `enerbot password sec`)"
-      elsif res.code == '429'
-        message = '_Rate limit exceeded_ :wait_energon:'
-      end
-
-    else
-      message = 'Debes especificar un email'
-    end
-    normal_talk(message, data)
-    end
-end
+# # Module for search elements in Have I Been Pwned
+# module SearchHaveIBeen
+#   extend Voice
+#   def self.exec(data)
+#     if (match = data.text.match(/pwned email ((.*)\|)?(.*?)(\>)?$/i))
+#       email = match.captures[2]
+#     end
+#
+#     message = "No info for #{email}"
+#     if email
+#       http = Net::HTTP.new('haveibeenpwned.com', 443)
+#       http.use_ssl = true
+#       req = Net::HTTP::Get.new("/api/v2/breachedaccount/#{email}", 'User-Agent' => 'enerbot-hibp-email')
+#       res = http.request(req)
+#
+#       if res.code == '200'
+#         breaches = JSON.parse(res.body)
+#         plural = breaches.length > 1 ? 's' : ''
+#         message = "El email \"#{email}\" ha sido listado en *#{breaches.length}* brecha#{plural} :\n"
+#         breaches.each do |breach|
+#           domain = breach['Domain'].empty? ? 'Lista de SPAM' : breach['Domain']
+#           message += "\t:rotating_light: #{breach['Title']} (#{domain}) #{breach['BreachDate']}\n"
+#         end
+#         message += "\nTe recomiendo que cambies tus contraseñas (sugiero `enerbot password sec`)"
+#       elsif res.code == '429'
+#         message = '_Rate limit exceeded_ :wait_energon:'
+#       end
+#
+#     else
+#       message = 'Debes especificar un email'
+#     end
+#     normal_talk(message, data)
+#     end
+# end
