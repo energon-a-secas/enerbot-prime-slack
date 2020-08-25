@@ -7,5 +7,3 @@ test.rb
 .ruby-version
 
 # Don't check in credentials 
-config/env.yml
-config/firebase.json
