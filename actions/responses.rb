@@ -1,6 +1,6 @@
 require './lib/message_slack'
 
-### HELP: recomienda < texto_relevante > --- Ivan quería esto.
+### HELP: recomienda (texto_relevante) --- Ivan quería esto.
 ### HELP: dame amor || i love you --- Entregar amor es uno de los principales objetivos del área "Continuous Love Delivery (CLD)" de ENERGON.
 module ResponseHi
   extend MessageSlack

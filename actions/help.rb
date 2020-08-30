@@ -13,6 +13,7 @@ module HelpMenu
     input = "### #{type}:"
     files.each do |file|
       next if file.nil?
+
       File.open(file).each do |line|
         matches = line.match(/(#{input})(.*)/i)
         text += "\n#{matches[2]}" if matches

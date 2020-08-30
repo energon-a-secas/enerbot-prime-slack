@@ -1,6 +1,6 @@
 require './lib/message_slack'
 
-### help: santo sepulcro a <value> --- Realiza el sepulcro de un miembro de Slack
+### help: santo sepulcro a (*@user1*|*service*) --- Realiza el sepulcro de un miembro de Slack
 module Chimuelo
   extend MessageSlack
 

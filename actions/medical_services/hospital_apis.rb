@@ -3,7 +3,7 @@ require 'json'
 require './lib/image_slack'
 require './lib/format_slack'
 
-### ENERDOC: < centros medicos | hospitales > --- ENER-DOC te permitirá saber a que clinica no ir.
+### ENERDOC: centros medicos || hospitales --- ENER-DOC te permitirá saber a que clinica no ir.
 module HospitalCheck
   extend MessageSlack
   extend ImageSlack

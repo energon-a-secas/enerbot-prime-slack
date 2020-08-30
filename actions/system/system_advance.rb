@@ -56,7 +56,7 @@ module SystemTrivia
   end
 end
 
-### ADMIN: *\visto < para | delete > < @user >*
+### ADMIN: \visto (para|delete) (*@user1*)
 module SystemBan
   extend MessageSlack
 

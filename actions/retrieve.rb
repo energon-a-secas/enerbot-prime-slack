@@ -13,7 +13,7 @@ module RetrieveBenefit
   end
 end
 
-### HELP: dame feedback || dale feedback a <@user1> como <@user2> --- Realiza evaluaciones de desempeño de forma completamente legal.
+### HELP: dame feedback || dale feedback a (*@user1*) como (*@user2*) --- Realiza evaluaciones de desempeño de forma completamente legal.
 module RetrieveFeedback
   extend StoreSystem
   extend MessageSlack
@@ -51,7 +51,7 @@ module RetrieveExcuse
   end
 end
 
-### HELP: dame <un|una> <versiculo|cita biblica|biblia> --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
+### HELP: dame (un|una) (versiculo|cita biblica|biblia) --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
 module RetrieveBible
   extend StoreSystem
   extend MessageSlack
@@ -78,7 +78,7 @@ module RetrieveBronce
   end
 end
 
-### HELP: dame un consejo <pregunta> --- Enerbot te puede guiar en el camino de la iluminación espiritual.
+### HELP: dame un consejo (*pregunta*) --- Enerbot te puede guiar en el camino de la iluminación espiritual.
 module RetrieveAdvice
   extend StoreSystem
   extend MessageSlack
@@ -122,7 +122,7 @@ module RetrieveMeruane
   end
 end
 
-### help: dame una polemica <sfw | nsfw | safe (default)> --- Enerbot tirará una frase polemica.
+### help: dame una polemica (sfw|nsfw|safe (default)) --- Enerbot tirará una frase polemica.
 module RetrievePolemica
   extend StoreSystem
   extend MessageSlack

@@ -51,7 +51,7 @@ module TimeToGardel
   end
 end
 
-### help: próximo feriado <country> --- Muestra el próximo feriado del país especificado.
+### help: próximo feriado (*country*) --- Muestra el próximo feriado del país especificado.
 module TimeToHoliday
   extend MessageSlack
 
@@ -89,7 +89,7 @@ module TimeToHoliday
   end
 end
 
-### help: estado <plataforma|softlayer> --- Estimación aproximada del estado de IBM Cloud
+### help: estado (plataforma|softlayer) --- Estimación aproximada del estado de IBM Cloud
 module TimeToCaos
   extend MessageSlack
 

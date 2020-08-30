@@ -16,7 +16,7 @@ module SystemHi
 end
 
 # Behold the wonders of artificial intelligence
-### ADMIN: \echo <channel_name|channel_id|channel_id-thread_timestamp|user_id> <message>
+### ADMIN: \echo (channel_name|channel_id|channel_id-thread_timestamp|user_id) (*message*)
 module SystemEcho
   extend MessageSlack
   extend ImageSlack
@@ -26,7 +26,7 @@ module SystemEcho
     text = data.text
     match = text.match(/^\\echo\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
     unless match.nil?
-      text, channel, thread = process_data(text)
+      text, channel, thread = channel_pattern(text)
       send_message(text, channel, thread)
       event_look_revert
     end
@@ -34,7 +34,7 @@ module SystemEcho
 end
 
 # Options: channel (Default: SLACK_BASE_CHANNEL), quantity (Default: 1 message), and channel type (groups or channels) (Default: channels)
-### ADMIN: \history <channel_name|channel_id>
+### ADMIN: \history (channel_name|channel_id)
 module SystemHistory
   extend MessageSlack
   extend ClientSlack
@@ -50,7 +50,7 @@ module SystemHistory
       check_ts = channel.match(/(.*)-(\d*\.\d*)/)
       channel = check_ts.captures[0] unless check_ts.nil?
 
-      # _text, channel, _thread = process_data(text)
+      # _text, channel, _thread = channel_pattern(text)
       channel_info = conversation_info(channel)
       channel_messages = search_messages_on(channel, 20)
       id = channel_info['id']
@@ -99,7 +99,7 @@ module SystemReaction
     text = data.text
     match = text.match(/^\\react\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
     unless match.nil?
-      emoji, channel, thread = process_data(text)
+      emoji, channel, thread = channel_pattern(text)
       add_reaction(emoji, channel, thread)
     end
   end

@@ -3,7 +3,7 @@ require './lib/client_slack'
 require './lib/image_slack'
 
 # I love Shin Getter Robot
-### ADMIN: \mode <@username|slackbot|handsome|quarantine|che|marcha|pci|huemul>
+### ADMIN: \mode (*@username*) || (slackbot|handsome|quarantine|che|marcha|pci|huemul)
 module SystemImage
   extend MessageSlack
   extend ClientSlack
@@ -11,21 +11,21 @@ module SystemImage
 
   def self.exec(data)
     costume = {
-        /poli/ => ['ENER-POLI', 'https://i.imgur.com/gKMpwYS.png'],
-        /slackbot/ => ['Slackbot', 'https://i.imgur.com/38PureM.jpg'],
-        /handsome/ => ['Handsome Enerbot', 'https://i.imgur.com/VXUaZBW.png'],
-        /quarantine/ => ['ENER-SEALED', 'https://i.imgur.com/tWBNy41.png'],
-        /prime/ => ['Prime', 'https://i.imgur.com/ZD0FCTl.png'],
-        /(che|argentino)/ => [['Che Enerbot', 'Enerbot Gaucho'].sample, 'https://i.imgur.com/eBlJolG.png'],
-        /(corona|coronavirus)/ => ['Enerbot S.', 'https://i.imgur.com/80BYGyJ.png'],
-        /order 66/ => ['Emperor Enerbot', 'https://i.imgur.com/By8dfzf.png'],
-        /pinocho/ => ['Pinocho', 'https://i.imgur.com/ybzUsex.png'],
-        /magnus/ => ['EnerMagnus', 'https://i.imgur.com/Dw7t6Ae.png'],
-        /infite/ => ['Enherbot', 'https://i.imgur.com/HT4r0YP.png'],
-        /huemul/ => ['Not Huemul', 'https://avatars2.githubusercontent.com/u/17724906?s=200&v=4'],
-        /(wall|trump)/ => ['Enerwall', 'https://i.imgur.com/IHDlzKS.png'],
-        /marcha/ => ['Super Cabo Enerbot', 'https://i.imgur.com/12CNUpm.png'],
-        /pci/ => ['Inoffensive cron', 'https://i.imgur.com/vtzYstx.png']
+      /poli/ => ['ENER-POLI', 'https://i.imgur.com/gKMpwYS.png'],
+      /slackbot/ => ['Slackbot', 'https://i.imgur.com/38PureM.jpg'],
+      /handsome/ => ['Handsome Enerbot', 'https://i.imgur.com/VXUaZBW.png'],
+      /quarantine/ => ['ENER-SEALED', 'https://i.imgur.com/tWBNy41.png'],
+      /prime/ => ['Prime', 'https://i.imgur.com/ZD0FCTl.png'],
+      /(che|argentino)/ => [['Che Enerbot', 'Enerbot Gaucho'].sample, 'https://i.imgur.com/eBlJolG.png'],
+      /(corona|coronavirus)/ => ['Enerbot S.', 'https://i.imgur.com/80BYGyJ.png'],
+      /order 66/ => ['Emperor Enerbot', 'https://i.imgur.com/By8dfzf.png'],
+      /pinocho/ => ['Pinocho', 'https://i.imgur.com/ybzUsex.png'],
+      /magnus/ => ['EnerMagnus', 'https://i.imgur.com/Dw7t6Ae.png'],
+      /infite/ => ['Enherbot', 'https://i.imgur.com/HT4r0YP.png'],
+      /huemul/ => ['Not Huemul', 'https://avatars2.githubusercontent.com/u/17724906?s=200&v=4'],
+      /(wall|trump)/ => ['Enerwall', 'https://i.imgur.com/IHDlzKS.png'],
+      /marcha/ => ['Super Cabo Enerbot', 'https://i.imgur.com/12CNUpm.png'],
+      /pci/ => ['Inoffensive cron', 'https://i.imgur.com/vtzYstx.png']
     }
 
     bot_look = ['enerbot', 'https://i.imgur.com/1n1Uohi.png']
