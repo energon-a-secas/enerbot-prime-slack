@@ -1,25 +1,27 @@
-require './mind/memory'
-require './voice'
+require './lib/image_slack'
+require './lib/message_slack'
+require './lib/store_system'
 
-### help: dame un beneficio --- Enerbot te asignará un beneficio.
+### ENERBOT: dame un beneficio --- Enerbot te asignará un beneficio.
 module RetrieveBenefit
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('benefits')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: dame feedback || dale feedback a *< @user_1 >* como *< @user2 >* --- Realiza evaluaciones de desempeño de forma completamente legal.
+### ENERBOT: dame feedback || dale feedback a (*@user1*) como (*@user2*) --- Realiza evaluaciones de desempeño de forma completamente legal.
 module RetrieveFeedback
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
+  extend SearchOnSlack
+  extend ImageSlack
 
   def self.exec(data)
     doc = get_col('feedbacks')
-    client = configure_client('web')
 
     target = ''
     replace = ''
@@ -28,108 +30,102 @@ module RetrieveFeedback
       replace = match.captures[2]
     end
     if target != '' && replace != ''
-      c = client.users_info user: replace
-      ENV['SLACK_BOT_ICON'] = c.user.profile.image_512
-      ENV['SLACK_BOT_NAME'] = c.user.real_name
+      imitate_look(replace)
       doc = "*<@#{target}>*: #{doc}"
-      normal_talk(doc, data)
-      ENV['SLACK_BOT_ICON'] = 'https://i.imgur.com/1n1Uohi.png'
-      ENV['SLACK_BOT_NAME'] = 'ENERBOT'
+      send_message(doc, data)
+      event_look_revert
     else
-      normal_talk(doc, data)
+      send_message(doc, data)
     end
   end
 end
 
-### help: dame una excusa --- Enerbot usará su ML para figurar una excusa plausible.
+### ENERBOT: dame una excusa --- Enerbot usará su ML para figurar una excusa plausible.
 module RetrieveExcuse
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('excuses')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: *< dame | tira | tirate>* *< un | una >* *< versiculo | cita biblica | biblia >* --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
+### ENERBOT: dame (un|una) (versiculo|cita biblica|biblia) --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
 module RetrieveBible
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
+  extend ImageSlack
 
   # https://i.imgur.com/wxEBkqY.png
 
   def self.exec(data)
     doc = get_col('bible')
-    c_icon = ENV['SLACK_BOT_ICON']
-    p c_icon
-    ENV['SLACK_BOT_ICON'] = 'https://i.imgur.com/wxEBkqY.png'
-    ENV['SLACK_BOT_NAME'] = 'Enerbowitz'
-    normal_talk(doc, data)
-    ENV['SLACK_BOT_ICON'] = c_icon
-    ENV['SLACK_BOT_NAME'] = 'ENERBOT'
+    event_look_set('Enerbowitz', 'https://i.imgur.com/wxEBkqY.png')
+    send_message(doc, data)
+    event_look_revert
   end
 end
 
-### help: dame una frase para el bronce --- Enerbot compartirá parte de la sabiduría popular.
+### ENERBOT: dame una frase para el bronce --- Enerbot compartirá parte de la sabiduría popular.
 module RetrieveBronce
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('bronzes')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: dame un consejo *< pregunta >* --- Enerbot te puede guiar en el camino de la iluminación espiritual.
+### ENERBOT: dame un consejo (*pregunta*) --- Enerbot te puede guiar en el camino de la iluminación espiritual.
 module RetrieveAdvice
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('advices')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: dame un mas --- Enerbot te dirá una comparación "a la chilena".
+### ENERBOT: dame un mas --- Enerbot te dirá una comparación "a la chilena".
 module RetrieveMore
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('morethan')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: tirate una paya --- Enerbot tirará una paya.
+### ENERBOT: tirate una paya --- Enerbot tirará una paya.
 module RetrievePaya
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
-    doc = "\n:chile::chile::chile:\n>>>#{get_col('paya')}"
-    normal_talk(doc, data)
+    doc = "\n:flag-cl::flag-cl::flag-cl:\n>>>#{get_col('paya')}"
+    send_message(doc, data)
   end
 end
 
-### help: dame un chiste de meruane || dame un buen chiste --- Enerbot compartirá el mejor humor conocido.
+### ENERBOT: dame un chiste de meruane || dame un buen chiste --- Enerbot compartirá el mejor humor conocido.
 module RetrieveMeruane
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('meruane')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end
 
-### help: dame una polemica <sfw | nsfw | safe (default)> --- Enerbot tirará una frase polemica.
+### ENERBOT: dame una polemica (sfw|nsfw|safe (default)) --- Enerbot tirará una frase polemica.
 module RetrievePolemica
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     safe = get_col('polemica')
@@ -148,17 +144,17 @@ module RetrievePolemica
            else
              safe
            end
-    normal_talk(mode, data)
+    send_message(mode, data)
   end
 end
 
-### help: dame un refrán --- Enerbot tirará un refrán para reflexionar.
+### ENERBOT: dame un refrán --- Enerbot tirará un refrán para reflexionar.
 module RetrieveRefran
-  extend FirebaseOps
-  extend Voice
+  extend StoreSystem
+  extend MessageSlack
 
   def self.exec(data)
     doc = get_col('refran')
-    normal_talk(doc, data)
+    send_message(doc, data)
   end
 end

@@ -1,10 +1,12 @@
-require './voice'
+require './lib/message_slack'
 
-### help: baila
+### ENERBOT: baila --- Regresará un baile con pantalla verde.
 module DiscoDance
-  extend Voice
+  extend MessageSlack
   def self.exec(data)
-    text = ['https://youtu.be/KQbc2Mnb7pA'].sample
-    normal_talk(text, data)
+    # KQbc2Mnb7pA
+    text = %w[m6k_t8yEyvE iG1o5xLqqcY IArX33Hoxog dlsjJ2xL0sw].sample
+    url = 'https://youtu.be/' + text
+    send_message(url, data)
   end
 end

@@ -1,74 +1,53 @@
-require './voice'
-require './will/personality'
+require './lib/message_slack'
+require './lib/image_slack'
+require './lib/format_slack'
 
-# Weird workaround
-def search_manual(type, path = 'actions/*.rb')
-  cmd = case type
-        when 'HELP' then 'enerbot'
-        when 'ADMIN' then ''
-        when 'SCRUM' then 'enerscrum'
-        end
+# Menu builder
+module HelpMenu
 
-  text = '>>>*Ayuda - Ajuda - Help* :heart:'
-  input = "### #{type}:"
-  files = Dir.glob(path)
-  files.each do |file|
-    next if file == 'actions/help.rb'
+  def self.file_search(type, path = 'actions/**/*.rb')
+    files = Dir.glob(path).map { |name| name unless name == 'actions/help.rb' }
 
-    File.open(file).each do |line|
-      matches = line.match(/(#{input})(.*)/i)
-      text += "\n#{cmd}#{matches[2]}" if matches
+    text = "\n"
+    input = "### #{type}:"
+    files.each do |file|
+      next if file.nil?
+
+      File.open(file).each do |line|
+        matches = line.match(/(#{input})(.*)/i)
+        text += "\n#{matches[2]}" if matches
+      end
     end
-  end
-  text += "\n\n:star: *For more information use the '-f' or '--full' flag.*"
-  text
-end
-
-# Regular features
-module SystemHelp
-  extend Voice
-
-  def self.exec(data)
-    text = search_manual('HELP')
-    text = text.gsub(/\s---.*$/, '') unless data.text =~ /(f|full)/
-    normal_talk(text, data)
+    new_text = text.split("\n").sort.join("\n")
+    new_text + "\n\n:star: *For more information use the '-f' or '--full' flag.*"
   end
 end
 
-# Scrum features
-module ScrumHelp
-  extend Voice
-  extend Persona
+module GeneralHelp
+  extend MessageSlack
+  extend FormatSlack
+  extend ImageSlack
 
   def self.exec(data)
-    event_look_set('Certified Digital Expert', 'https://i.imgur.com/bSGaXSX.png')
-    text = search_manual('SCRUM', 'actions/scrum/*.rb')
-    text = text.gsub(/\s---.*$/, '') unless data.text =~ /(f|full)/
-    normal_talk(text, data)
-    event_look_revert
-  end
-end
+    # author = 'Ayuda - Ajuda - Help :heart:'
 
-# Doctor features
-module DoctorHelp
-  extend Voice
-  extend Persona
-
-  def self.exec(data)
-    event_look_set('ENER-DOC', 'https://i.imgur.com/LjhmSeI.png')
-    text = search_manual('DOCTOR', 'actions/doctor/*.rb')
-    text = text.gsub(/\s---.*$/, '') unless data.text =~ /(f|full)/
-    normal_talk(text, data)
-    event_look_revert
-  end
-end
-
-# Root features
-module FunctionsHelp
-  extend Voice
-
-  def self.exec(data)
-    text = search_manual('ADMIN')
-    normal_talk(text, data)
+    check = data.text.match(/(\\HELP|ENERBOT|SCRUM|DOC|ZENBOT)/i)
+    unless check.nil?
+      types = {
+          'HELP' => ['\\', 'Advance Tutorial', 'https://i.imgur.com/rs3nYG7.png'],
+          'ENERBOT' => ['enerbot', 'Ayuda - Ajuda - Help', 'https://i.imgur.com/yQLi8YZ.png'],
+          'SCRUM' => ['enerscrum', 'Certified Digital Expert', 'https://i.imgur.com/bSGaXSX.png'],
+          'DOC' => ['enerdoc', 'ENERDOC', 'https://i.imgur.com/LjhmSeI.png'],
+          'ZENBOT' => ['Zenbot', 'Zenbot', 'https://i.imgur.com/Fswhv2H.png']
+      }
+      help_target = check[1].upcase.gsub('\\', '')
+      menu_attr = types[help_target]
+      event_look_set(menu_attr[1], menu_attr[2]) unless menu_attr.nil?
+      text = HelpMenu.file_search(help_target)
+      text = text.gsub(/\s---.*$/, '') unless data.text =~ /(f|full)/
+      message = attachment_style(text, pretext: "#{menu_attr[0]} +")
+      send_attachment(message, data)
+      event_look_revert unless menu_attr.nil?
+    end
   end
 end
