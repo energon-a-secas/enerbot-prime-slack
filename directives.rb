@@ -19,7 +19,7 @@ require_relative 'actions/medical_services/cheap_doctor'
 require_relative 'actions/system/system_actions'
 require_relative 'actions/system/system_advance'
 require_relative 'actions/system/system_image'
-
+require_relative 'actions/energon_coins/bank_teller'
 # require_relative 'actions/celery'
 # require_relative 'actions/employees'
 # require_relative 'actions/techdebt'
@@ -50,8 +50,8 @@ class Directive
       # Thread.new { Directive.scrum_list(text, data) }
     when /^enerdoc/i
       Thread.new { Directive.doctor_list(text, data) }
-      # when /<@(.*?)>.*(\+\+|--|balance)/
-      #  Thread.new { Enercoins.exec(data) }
+    when /<@(.*?)>.*(\+\+|--|balance)/
+      Thread.new { BankTeller.exec(data) }
     when /^[-_](.*)/
       Thread.new { Directive.ref_list(text, data) }
     when /^(zenbot)/
@@ -160,8 +160,7 @@ class Directive
 
   def self.ref_list(text, data)
     func = { /(help|ayuda)$/ => ReferenceHelp,
-             /(.*)/ => ReferenceMatrix
-    }
+             /(.*)/ => ReferenceMatrix }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 
