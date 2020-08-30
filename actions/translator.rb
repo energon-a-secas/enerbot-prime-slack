@@ -5,7 +5,7 @@ require 'uri'
 require 'cgi'
 require 'guru_guru'
 
-### HELP: como se dice (*text*) en (ingles|japones|portugues|frances|guru-guru) --- Traducción y otras hierbas.
+### ENERBOT: como se dice (*text*) en (ingles|japones|portugues|frances|guru-guru) --- Traducción y otras hierbas.
 module TranslateText
   extend MessageSlack
   def self.exec(data)

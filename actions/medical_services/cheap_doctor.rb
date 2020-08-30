@@ -1,14 +1,14 @@
 require './lib/message_slack'
 require './lib/image_slack'
 
-### DOCTOR: dame tips || dame consejos --- ENER-DOC te explicará que hacer para mantenerte sano y a salvo.
+### DOC: dame tips || dame consejos --- ENER-DOC te explicará que hacer para mantenerte sano y a salvo.
 module DoctorTips
   extend MessageSlack
   extend ImageSlack
 
   def self.exec(data)
     add_reaction('helicopter', data.channel, data.ts)
-    event_look_set('ENER-DOC', 'https://i.imgur.com/LjhmSeI.png')
+    event_look_set('ENERDOC', 'https://i.imgur.com/LjhmSeI.png')
     actions = ['Lávate las manos durante al menos 20 segundos con agua y jabón.', 'Evita tocarte la cara.', 'Mantén una distancia de 1 a 2 metros de otras personas en la medida de lo posible.'].sample
     supplements = ['Agua de manzanilla nunca falla.', 'La vitamina C no te hará inmune pero te ayudará con los resfríos comunes.', 'Harto liquido, ahí lo dejo.'].sample
     office = ['Evita las reuniones en salas no diseñadas para sostener un ambiente agradable para más de 3 personas.', 'No compartas tu mate', 'Eviten utilizar los mismos utencilios de la cocina.', 'Trabaja remoto si puedes.', 'No vengas si ya estas resfriado. Agradecemos tu compromiso, pero no apreciamos tus mocos.'].sample

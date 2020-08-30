@@ -30,34 +30,8 @@ class SystemDocs
   end
 end
 
-module SystemTrivia
-  extend MessageSlack
-
-  def self.exec(data)
-    today = Time.now.strftime('%Y%m%d')
-    db = SystemDocs.new(doc: 'globant')
-    info = db.get_data
-
-    check = nil
-    check = data.text.match(/(^(pausa|trivia|enerbot.*trivia))/) unless data.text.nil?
-    unless check.nil?
-      if info['time'] == today
-        url = "<#{info['link']}|SongTrivia> :microphone: "
-        send_message(url, data)
-      else
-        send_message(['Aún no definen room....', 'Alguien decidió extender la meet', 'Esperando a que suban el link', 'No me haría expectativas...'].sample, data)
-      end
-    end
-    link = data.text.match(%r{<(https://songtrivia2.*)>})
-    if data.user == 'ULSPGBVSM' && !link.nil?
-      db.set_song(link[1], today) if info['time'] != today
-      # send_message("<#{link[1]}|SongTrivia> :microphone:", data)
-    end
-  end
-end
-
-### ADMIN: \visto (para|delete) (*@user1*)
-module SystemBan
+### HELP: visto (para|delete) (*@user1*) --- Self defense using 'seen' emojis.
+module SystemSD
   extend MessageSlack
 
   def self.exec(data)
@@ -87,3 +61,30 @@ module SystemAutoBan
     end
   end
 end
+
+
+# module SystemTrivia
+#   extend MessageSlack
+#
+#   def self.exec(data)
+#     today = Time.now.strftime('%Y%m%d')
+#     db = SystemDocs.new(doc: 'globant')
+#     info = db.get_data
+#
+#     check = nil
+#     check = data.text.match(/(^(pausa|trivia|enerbot.*trivia))/) unless data.text.nil?
+#     unless check.nil?
+#       if info['time'] == today
+#         url = "<#{info['link']}|SongTrivia> :microphone: "
+#         send_message(url, data)
+#       else
+#         send_message(['Aún no definen room....', 'Alguien decidió extender la meet', 'Esperando a que suban el link', 'No me haría expectativas...'].sample, data)
+#       end
+#     end
+#     link = data.text.match(%r{<(https://songtrivia2.*)>})
+#     if data.user == 'ULSPGBVSM' && !link.nil?
+#       db.set_song(link[1], today) if info['time'] != today
+#       # send_message("<#{link[1]}|SongTrivia> :microphone:", data)
+#     end
+#   end
+# end

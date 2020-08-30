@@ -2,8 +2,8 @@ require_relative 'blockchain'
 require './lib/message_slack'
 require './lib/format_slack'
 
-### help: (*@user>*) (--|++) (*motive*) --- Entrega o remueve enercoins a usuario especificado para hacer ajuste de cuentas.
-### help: (*@user>*) (*balance*)
+### ENERBOT: (*@user1*) (--|++) (*motive*) --- Entrega o remueve enercoins a usuario especificado para hacer ajuste de cuentas.
+### ENERBOT: (*@user1*) (*balance*)
 module BankTeller
   extend Blockchain
   extend MessageSlack

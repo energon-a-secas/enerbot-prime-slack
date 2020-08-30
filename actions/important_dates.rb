@@ -5,7 +5,7 @@ require 'holidays'
 require 'countries'
 require './lib/message_slack'
 
-### help: cuánto para el 18? --- Muestra los días restantes para el 18 de septiembre.
+### ENERBOT: cuánto para el 18? --- Muestra los días restantes para el 18 de septiembre.
 module TimeToSeptember
   extend MessageSlack
 
@@ -31,7 +31,7 @@ module TimeToSeptember
   end
 end
 
-### help: cuándo pagan? --- Muestra los días restantes para fin de mes.
+### ENERBOT: cuándo pagan? --- Muestra los días restantes para fin de mes.
 module TimeToGardel
   extend MessageSlack
 
@@ -51,7 +51,7 @@ module TimeToGardel
   end
 end
 
-### help: próximo feriado (*country*) --- Muestra el próximo feriado del país especificado.
+### ENERBOT: próximo feriado (*country*) --- Muestra el próximo feriado del país especificado.
 module TimeToHoliday
   extend MessageSlack
 
@@ -89,7 +89,7 @@ module TimeToHoliday
   end
 end
 
-### help: estado (plataforma|softlayer) --- Estimación aproximada del estado de IBM Cloud
+### ENERBOT: estado (plataforma|softlayer) --- Estimación aproximada del estado de IBM Cloud
 module TimeToCaos
   extend MessageSlack
 

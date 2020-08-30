@@ -1,7 +1,7 @@
 require 'yt'
 require './lib/message_slack'
 
-### HELP: busca (*video*) --- Busca y trae un video de youtube.
+### ENERBOT: busca (*video*) --- Busca y trae un video de youtube.
 module YoutubeSearch
   extend MessageSlack
 

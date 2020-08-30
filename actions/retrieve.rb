@@ -2,7 +2,7 @@ require './lib/image_slack'
 require './lib/message_slack'
 require './lib/store_system'
 
-### HELP: dame un beneficio --- Enerbot te asignará un beneficio.
+### ENERBOT: dame un beneficio --- Enerbot te asignará un beneficio.
 module RetrieveBenefit
   extend StoreSystem
   extend MessageSlack
@@ -13,7 +13,7 @@ module RetrieveBenefit
   end
 end
 
-### HELP: dame feedback || dale feedback a (*@user1*) como (*@user2*) --- Realiza evaluaciones de desempeño de forma completamente legal.
+### ENERBOT: dame feedback || dale feedback a (*@user1*) como (*@user2*) --- Realiza evaluaciones de desempeño de forma completamente legal.
 module RetrieveFeedback
   extend StoreSystem
   extend MessageSlack
@@ -40,7 +40,7 @@ module RetrieveFeedback
   end
 end
 
-### help: dame una excusa --- Enerbot usará su ML para figurar una excusa plausible.
+### ENERBOT: dame una excusa --- Enerbot usará su ML para figurar una excusa plausible.
 module RetrieveExcuse
   extend StoreSystem
   extend MessageSlack
@@ -51,7 +51,7 @@ module RetrieveExcuse
   end
 end
 
-### HELP: dame (un|una) (versiculo|cita biblica|biblia) --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
+### ENERBOT: dame (un|una) (versiculo|cita biblica|biblia) --- Recuerda, en ENERGON no preguntamos "¿Para qué?" sino ¿Por cuánto?.
 module RetrieveBible
   extend StoreSystem
   extend MessageSlack
@@ -67,7 +67,7 @@ module RetrieveBible
   end
 end
 
-### HELP: dame una frase para el bronce --- Enerbot compartirá parte de la sabiduría popular.
+### ENERBOT: dame una frase para el bronce --- Enerbot compartirá parte de la sabiduría popular.
 module RetrieveBronce
   extend StoreSystem
   extend MessageSlack
@@ -78,7 +78,7 @@ module RetrieveBronce
   end
 end
 
-### HELP: dame un consejo (*pregunta*) --- Enerbot te puede guiar en el camino de la iluminación espiritual.
+### ENERBOT: dame un consejo (*pregunta*) --- Enerbot te puede guiar en el camino de la iluminación espiritual.
 module RetrieveAdvice
   extend StoreSystem
   extend MessageSlack
@@ -89,7 +89,7 @@ module RetrieveAdvice
   end
 end
 
-### HELP: dame un mas --- Enerbot te dirá una comparación "a la chilena".
+### ENERBOT: dame un mas --- Enerbot te dirá una comparación "a la chilena".
 module RetrieveMore
   extend StoreSystem
   extend MessageSlack
@@ -100,7 +100,7 @@ module RetrieveMore
   end
 end
 
-### help: tirate una paya --- Enerbot tirará una paya.
+### ENERBOT: tirate una paya --- Enerbot tirará una paya.
 module RetrievePaya
   extend StoreSystem
   extend MessageSlack
@@ -111,7 +111,7 @@ module RetrievePaya
   end
 end
 
-### help: dame un chiste de meruane || dame un buen chiste --- Enerbot compartirá el mejor humor conocido.
+### ENERBOT: dame un chiste de meruane || dame un buen chiste --- Enerbot compartirá el mejor humor conocido.
 module RetrieveMeruane
   extend StoreSystem
   extend MessageSlack
@@ -122,7 +122,7 @@ module RetrieveMeruane
   end
 end
 
-### help: dame una polemica (sfw|nsfw|safe (default)) --- Enerbot tirará una frase polemica.
+### ENERBOT: dame una polemica (sfw|nsfw|safe (default)) --- Enerbot tirará una frase polemica.
 module RetrievePolemica
   extend StoreSystem
   extend MessageSlack
@@ -148,7 +148,7 @@ module RetrievePolemica
   end
 end
 
-### help: dame un refrán --- Enerbot tirará un refrán para reflexionar.
+### ENERBOT: dame un refrán --- Enerbot tirará un refrán para reflexionar.
 module RetrieveRefran
   extend StoreSystem
   extend MessageSlack

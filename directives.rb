@@ -20,15 +20,12 @@ require_relative 'actions/system/system_actions'
 require_relative 'actions/system/system_advance'
 require_relative 'actions/system/system_image'
 require_relative 'actions/energon_coins/bank_teller'
+require_relative 'actions/scrum_services/scrum_social'
 # require_relative 'actions/celery'
 # require_relative 'actions/employees'
 # require_relative 'actions/techdebt'
-# require_relative 'actions/scrum/daily'
-# require_relative 'actions/scrum/checks'
-# require_relative 'actions/scrum/daily_remastered'
 # require_relative 'actions/organization'
 # require_relative 'actions/idocy/askme'
-# require_relative 'actions/enercoins/enercoins'
 
 # Will does not refer to any particular desire,
 # but rather to the mechanism for choosing from among one's directives.
@@ -38,16 +35,15 @@ class Directive
   def self.check(data)
     text = data.text
     user = data.user
-    # SystemTrivia.exec(data)
-    # SystemMilano.exec(data)
+    # SystemSD.exec(data)
 
     case text
     when /^\\/
       Directive.system_list(text, data) if root_list_include?(user)
     when /^enerbot/i
       Thread.new { Directive.command_list(text, data) }
-      # when /^enerscrum/i
-      # Thread.new { Directive.scrum_list(text, data) }
+    when /^enerscrum/i
+      Thread.new { Directive.scrum_list(text, data) }
     when /^enerdoc/i
       Thread.new { Directive.doctor_list(text, data) }
     when /<@(.*?)>.*(\+\+|--|balance)/
@@ -60,7 +56,7 @@ class Directive
   end
 
   def self.command_list(text, data)
-    func = { /(ayuda|help)/ => CommandHelp,
+    func = { /(ayuda|help)/ => GeneralHelp,
              /(sing|canta)/ => SingSong,
              /(baila)/ => DiscoDance,
              /haarp/ => SearchEarthquakes,
@@ -113,42 +109,42 @@ class Directive
   end
 
   def self.system_list(text, data)
-    func = { /(ayuda|help)$/ => RootHelp,
+    func = { /(ayuda|help)$/ => GeneralHelp,
              /(hol[ai]|hello|hi)$/ => SystemHi,
-             # /grant/ => Market,
-             # /(events|status)$/ => SystemStatus,
              /history\s/ => SystemHistory,
              /shutdown$/ => SystemKill,
              /(echo)/ => SystemEcho,
              /(getta change|replace|mod[oe]|copy|backup)/ => SystemImage,
-             # /add/ => AdminProfile,
              /revive/ => SystemImageBeyond,
              /search/ => SystemUserList,
              /copy/ => SystemCustomImage,
              /react/ => SystemReaction,
+             # /add/ => AdminProfile,
+             # /grant/ => Market,
+             # /(events|status)$/ => SystemStatus,
              # /nsfw/ => SystemNSFW,
-             /visto/ => SystemBan }
+             /visto/ => SystemSD }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 
-  # def self.scrum_list(text, data)
-  #   func = { /(ayuda|help)/ => ScrumHelp,
-  #            /(hol[ai]|hello|hi)$/ => ScrumHi,
-  #            /(h[aá]blame|sal[uú]dame)$/ => ScrumDirect,
-  #            /(ensayo)$/ => ScrumDaily,
-  #            /(check)\s<@(.*)>$/ => ScrumCheck,
-  #            /attach/ => ScrumAttach,
-  #            /get my daily/ => ScrumRetrieve,
-  #            /add me/ => ScrumAdd,
-  #            /daily start/ => ScrumDaily2,
-  #            /(members|miembros)/ => ScrumMembers,
-  #            /group info/ => ScrumInfo,
-  #            /standup a/ => ScrumStandup }
-  #   func.keys.find { |key| func[key].exec(data) if key =~ text }
-  # end
+  def self.scrum_list(text, data)
+    func = { /(ayuda|help)/ => GeneralHelp,
+             /(hol[ai]|hello|hi)$/ => ScrumHi,
+             /(h[aá]blame|sal[uú]dame)$/ => ScrumDM }
+             #/(ensayo)$/ => ScrumDaily,
+             #/(check)\s<@(.*)>$/ => ScrumCheck,
+             #/attach/ => ScrumAttach,
+             #/get my daily/ => ScrumRetrieve,
+             #/add me/ => ScrumAdd,
+             #/daily start/ => ScrumDaily2,
+             #/(members|miembros)/ => ScrumMembers,
+             #/group info/ => ScrumInfo,
+             #/standup a/ => ScrumStandup }
+    func.keys.find { |key| func[key].exec(data) if key =~ text }
+  end
 
   def self.doctor_list(text, data)
-    func = { /(ayuda|help)/ => DoctorHelp,
+    func = { /(ayuda|help)/ => GeneralHelp,
              # /ati[eé]ndeme/ => DoctorAsk,
              /(dame tips|consejos)/ => DoctorTips,
              /(infectados|corona)/ => DoctorCases,
@@ -165,7 +161,7 @@ class Directive
   end
 
   def self.zen_list(text, data)
-    func = { /(help|ayuda)$/ => ZenHelp,
+    func = { /(help|ayuda)$/ => GeneralHelp,
              /game/ => ZenGame }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end

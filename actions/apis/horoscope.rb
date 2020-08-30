@@ -1,7 +1,7 @@
 require 'json'
 require './lib/message_slack'
 
-### help: horoscopo (*sign*) --- Enerbot utilizará sus contactos en la televisión para traerte las mejores predicciones del día.
+### ENERBOT: horoscopo (*sign*) --- Enerbot utilizará sus contactos en la televisión para traerte las mejores predicciones del día.
 module SearchHoroscope
   extend MessageSlack
 
@@ -21,7 +21,7 @@ module SearchHoroscope
   end
 end
 
-### help: compatibilidad (*sign*) --- Enerbot te golpeará con la realidad sobre tu crush.
+### ENERBOT: compatibilidad (*sign*) --- Enerbot te golpeará con la realidad sobre tu crush.
 module SearchCompability
   extend MessageSlack
 

@@ -1,7 +1,7 @@
 require './lib/message_slack'
 
-### HELP: recomienda (texto_relevante) --- Ivan quería esto.
-### HELP: dame amor || i love you --- Entregar amor es uno de los principales objetivos del área "Continuous Love Delivery (CLD)" de ENERGON.
+### ENERBOT: recomienda (texto_relevante) --- Ivan quería esto.
+### ENERBOT: dame amor || i love you --- Entregar amor es uno de los principales objetivos del área "Continuous Love Delivery (CLD)" de ENERGON.
 module ResponseHi
   extend MessageSlack
   def self.exec(data)
@@ -29,7 +29,7 @@ module ResponseAgent
   end
 end
 
-### help: chiste corto--- Enerbot as a Joke.
+### ENERBOT: chiste corto --- Enerbot as a Joke.
 module ResponseJok
   extend MessageSlack
   def self.exec(data)
@@ -38,7 +38,7 @@ module ResponseJok
   end
 end
 
-### help: cuenta un chiste --- Enerbot te dirá uno de 700 chistes disponibles.
+### ENERBOT: cuenta un chiste --- Enerbot te dirá uno de 700 chistes disponibles.
 module ResponseJoke
   extend MessageSlack
   def self.exec(data)
@@ -47,7 +47,7 @@ module ResponseJoke
   end
 end
 
-### help: pregunta reflexiva --- Enerbot te dejará pensando.
+### ENERBOT: pregunta reflexiva --- Enerbot te dejará pensando.
 module ResponseQuestion
   extend MessageSlack
   def self.exec(data)
@@ -56,7 +56,7 @@ module ResponseQuestion
   end
 end
 
-# ### help: inducción --- Enerbot te revelará los misterios del universo y de paso la inducción.
+# ### ENERBOT: inducción --- Enerbot te revelará los misterios del universo y de paso la inducción.
 # module ResponseIntro
 #   extend MessageSlack
 #   extend Conversation
@@ -102,7 +102,7 @@ end
 #   end
 # end
 
-### help: presentate con estilo --- Entrega presentación utilizada en conferencias internacionales.
+### ENERBOT: presentate con estilo --- Entrega presentación utilizada en conferencias internacionales.
 module ResponsePresentation
   extend MessageSlack
 
@@ -112,7 +112,7 @@ module ResponsePresentation
   end
 end
 
-### help: frase una profunda --- Entrega una frase que te motivará hasta el fin del proyecto.
+### ENERBOT: frase una profunda --- Entrega una frase que te motivará hasta el fin del proyecto.
 module ResponseMotivation
   extend MessageSlack
 
@@ -122,7 +122,7 @@ module ResponseMotivation
   end
 end
 
-### help: give me a cybersecurity excuse --- Genera un reporte de seguridad.
+### ENERBOT: give me a cybersecurity excuse --- Genera un reporte de seguridad.
 module ResponseSecurity
   extend MessageSlack
 

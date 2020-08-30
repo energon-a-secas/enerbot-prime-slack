@@ -3,7 +3,7 @@ require './lib/client_slack'
 require './lib/image_slack'
 
 # I love Shin Getter Robot
-### ADMIN: \mode (*@username*) || (slackbot|handsome|quarantine|che|marcha|pci|huemul)
+### HELP: mode (*@username*) || (slackbot|handsome|quarantine|che|marcha|pci|huemul)
 module SystemImage
   extend MessageSlack
   extend ClientSlack

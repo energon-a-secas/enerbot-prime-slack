@@ -1,6 +1,6 @@
 require './lib/message_slack'
 
-### HELP: canta --- Enerbot cantará un extracto de sus canciones favoritas.
+### ENERBOT: canta --- Enerbot cantará un extracto de sus canciones favoritas.
 module SingSong
   def self.exec(data)
     extend MessageSlack
@@ -15,7 +15,7 @@ module SingSong
   end
 end
 
-### HELP: recomienda una canción --- Mandará un video aleatorio.
+### ENERBOT: recomienda una canción --- Mandará un video aleatorio.
 module RecommendSong
   def self.exec(data)
     extend MessageSlack

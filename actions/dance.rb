@@ -1,6 +1,6 @@
 require './lib/message_slack'
 
-### help: baila --- Regresará un baile con pantalla verde.
+### ENERBOT: baila --- Regresará un baile con pantalla verde.
 module DiscoDance
   extend MessageSlack
   def self.exec(data)

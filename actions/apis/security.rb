@@ -25,7 +25,7 @@ module SearchWebSecurity
   end
 end
 
-### help: haarp --- Entrega información sobre temblores/terremotos recientes en Chile.
+### ENERBOT: haarp --- Entrega información sobre temblores/terremotos recientes en Chile.
 module SearchEarthquakes
   extend MessageSlack
 

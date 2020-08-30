@@ -2,7 +2,7 @@ require './lib/message_slack'
 require './lib/format_slack'
 require 'open-uri'
 
-### HELP: servicios cuarentena --- ENERBOT te dará servicios para una cuarentena y/o apocalipsis zombie.
+### ENERBOT: servicios cuarentena --- ENERBOT te dará servicios para una cuarentena y/o apocalipsis zombie.
 module QtService
   extend ImageSlack
   extend FormatSlack

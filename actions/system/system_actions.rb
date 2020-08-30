@@ -5,7 +5,7 @@ require './lib/image_slack'
 require './lib/format_slack'
 
 # Say hi in the coolest way
-### ADMIN: \hi
+### HELP: hi
 module SystemHi
   extend MessageSlack
 
@@ -16,7 +16,7 @@ module SystemHi
 end
 
 # Behold the wonders of artificial intelligence
-### ADMIN: \echo (channel_name|channel_id|channel_id-thread_timestamp|user_id) (*message*)
+### HELP: echo (channel_name|channel_id|channel_id-thread_timestamp|user_id) (*message*)
 module SystemEcho
   extend MessageSlack
   extend ImageSlack
@@ -34,7 +34,7 @@ module SystemEcho
 end
 
 # Options: channel (Default: SLACK_BASE_CHANNEL), quantity (Default: 1 message), and channel type (groups or channels) (Default: channels)
-### ADMIN: \history (channel_name|channel_id)
+### HELP: history (channel_name|channel_id)
 module SystemHistory
   extend MessageSlack
   extend ClientSlack
@@ -43,7 +43,6 @@ module SystemHistory
 
   def self.exec(data)
     text = data.text
-    p text
     match = text.match(/^\\history\s(\<[#@])?((.*)\|)?(.*?)(\>)/i)
     unless match.nil?
       channel = match.captures[2] || match.captures[3]
@@ -54,7 +53,7 @@ module SystemHistory
       channel_info = conversation_info(channel)
       channel_messages = search_messages_on(channel, 20)
       id = channel_info['id']
-      last_messages = "#{id}\n"
+      last_messages = "\n"
       channel_messages.messages.each do |m|
         last_messages += "-#{m['ts']} | <@#{m['user']}>: #{m['text']}\n" unless m['subtype'] == 'bot_message'
       end
@@ -91,6 +90,7 @@ module SystemUserList
   end
 end
 
+### HELP: react (channel_id-thread_timestamp) (*emoji*)
 module SystemReaction
   extend MessageSlack
   extend FormatSlack
@@ -100,7 +100,7 @@ module SystemReaction
     match = text.match(/^\\react\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
     unless match.nil?
       emoji, channel, thread = channel_pattern(text)
-      add_reaction(emoji, channel, thread)
+      add_reaction(emoji.gsub(':', ''), channel, thread)
     end
   end
 end
@@ -116,7 +116,7 @@ module SystemMilano
   end
 end
 
-### ADMIN: \shutdown
+### HELP: shutdown
 module SystemKill
   extend MessageSlack
 

@@ -7,7 +7,7 @@ require 'json'
 require 'net/http'
 require 'date'
 
-### DOCTOR: muertes --- ENERDOC te dará la cifra actualizada de muertes en un pais.
+### DOC: muertes --- ENERDOC te dará la cifra actualizada de muertes en un pais.
 module DoctorDeaths
   extend MessageSlack
   extend ImageSlack
@@ -44,7 +44,7 @@ module DoctorDeaths
   end
 end
 
-### DOCTOR: lista de infectados || avance del corona virus --- ENERDOC te dará la cifra actualizada de casos en un pais.
+### DOC: lista de infectados || avance del corona virus --- ENERDOC te dará la cifra actualizada de casos en un pais.
 module DoctorCases
   extend MessageSlack
   extend ImageSlack
@@ -83,7 +83,7 @@ module DoctorCases
   end
 end
 
-### DOCTOR: en uci || uci --- ENERDOC te dará la cifra actualizada de pacientes en UCI.
+### DOC: en uci || uci --- ENERDOC te dará la cifra actualizada de pacientes en UCI.
 module DoctorUCI
   extend MessageSlack
   extend ImageSlack
