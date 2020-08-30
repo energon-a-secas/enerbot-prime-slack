@@ -1,9 +1,9 @@
 require 'yt'
-require './voice'
+require './lib/message_slack'
 
-### help: enerbot busca *< video >* --- Busca y trae un video de youtube.
+### HELP: busca *< video >* --- Busca y trae un video de youtube.
 module YoutubeSearch
-  extend Voice
+  extend MessageSlack
 
   def self.exec(data)
     Yt.configure do |config|
@@ -13,10 +13,10 @@ module YoutubeSearch
 
     videos = Yt::Collections::Videos.new
     result = videos.where(q: text).first
-    normal_talk("https://www.youtube.com/watch?v=#{result.id}", data)
+    send_message("https://www.youtube.com/watch?v=#{result.id}", data)
   rescue StandardError => e
     cat = ['https://youtu.be/Imeq3GeRttw'].sample
     text = "No encontré un video, así que te dejaré un video de gatos para distraerte: #{cat}"
-    normal_talk(text, data)
+    send_message(text, data)
   end
 end

@@ -1,8 +1,8 @@
-require './voice'
+require './lib/message_slack'
 
-### help: santo sepulcro a *< value >* --- Realiza el sepulcro de un miembro de Slack
+### help: santo sepulcro a <value> --- Realiza el sepulcro de un miembro de Slack
 module Chimuelo
-  extend Voice
+  extend MessageSlack
 
   def self.exec(data)
     target = data.text
@@ -27,6 +27,6 @@ module Chimuelo
       _*#{to}*, descansa, ya estás en paz.»_
       :doge:
     HEREDOC
-    normal_talk(text, data)
+    send_message(text, data)
   end
 end

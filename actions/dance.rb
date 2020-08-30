@@ -1,10 +1,10 @@
-require './voice'
+require './lib/message_slack'
 
 ### help: baila
 module DiscoDance
-  extend Voice
+  extend MessageSlack
   def self.exec(data)
     text = ['https://youtu.be/KQbc2Mnb7pA'].sample
-    normal_talk(text, data)
+    send_message(text, data)
   end
 end
