@@ -3,6 +3,7 @@ require 'json'
 require 'net/http'
 require './lib/message_slack'
 
+### ENERBOT: escanea (*url*) --- Enerbot revisará si tu sitio web es seguro bajo los estandares ENERGON.
 module SearchWebSecurity
   extend MessageSlack
 

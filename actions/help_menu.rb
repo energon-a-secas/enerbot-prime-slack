@@ -4,7 +4,6 @@ require './lib/format_slack'
 
 # Menu builder
 module HelpMenu
-
   def self.file_search(type, path = 'actions/**/*.rb')
     files = Dir.glob(path).map { |name| name unless name == 'actions/help.rb' }
 
@@ -34,11 +33,11 @@ module GeneralHelp
     check = data.text.match(/(\\HELP|ENERBOT|SCRUM|DOC|ZENBOT)/i)
     unless check.nil?
       types = {
-          'HELP' => ['\\', 'Advance Tutorial', 'https://i.imgur.com/rs3nYG7.png'],
-          'ENERBOT' => ['enerbot', 'Ayuda - Ajuda - Help', 'https://i.imgur.com/yQLi8YZ.png'],
-          'SCRUM' => ['enerscrum', 'Certified Digital Expert', 'https://i.imgur.com/bSGaXSX.png'],
-          'DOC' => ['enerdoc', 'ENERDOC', 'https://i.imgur.com/LjhmSeI.png'],
-          'ZENBOT' => ['Zenbot', 'Zenbot', 'https://i.imgur.com/Fswhv2H.png']
+        'HELP' => ['\\', 'Advance Tutorial', 'https://i.imgur.com/rs3nYG7.png'],
+        'ENERBOT' => ['enerbot', 'Ayuda - Ajuda - Help', 'https://i.imgur.com/yQLi8YZ.png'],
+        'SCRUM' => ['enerscrum', 'Certified Digital Expert', 'https://i.imgur.com/bSGaXSX.png'],
+        'DOC' => ['enerdoc', 'ENERDOC', 'https://i.imgur.com/LjhmSeI.png'],
+        'ZENBOT' => ['Zenbot', 'Zenbot', 'https://i.imgur.com/Fswhv2H.png']
       }
       help_target = check[1].upcase.gsub('\\', '')
       menu_attr = types[help_target]

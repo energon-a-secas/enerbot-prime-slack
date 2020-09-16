@@ -16,19 +16,23 @@ module SystemImage
       /handsome/ => ['Handsome Enerbot', 'https://i.imgur.com/VXUaZBW.png'],
       /quarantine/ => ['ENER-SEALED', 'https://i.imgur.com/tWBNy41.png'],
       /prime/ => ['Prime', 'https://i.imgur.com/ZD0FCTl.png'],
-      /(che|argentino)/ => [['Che Enerbot', 'Enerbot Gaucho'].sample, 'https://i.imgur.com/eBlJolG.png'],
+      /(che|argentino)/ => [['Che Enerbot', 'Enerbot Gaucho'].sample, ['https://i.imgur.com/eBlJolG.png', 'https://i.imgur.com/SdQnJha.png'].sample],
       /(corona|coronavirus)/ => ['Enerbot S.', 'https://i.imgur.com/80BYGyJ.png'],
       /order 66/ => ['Emperor Enerbot', 'https://i.imgur.com/By8dfzf.png'],
       /pinocho/ => ['Pinocho', 'https://i.imgur.com/ybzUsex.png'],
       /magnus/ => ['EnerMagnus', 'https://i.imgur.com/Dw7t6Ae.png'],
-      /infite/ => ['Enherbot', 'https://i.imgur.com/HT4r0YP.png'],
+      /infinite/ => ['Enherbot', 'https://i.imgur.com/HT4r0YP.png'],
       /huemul/ => ['Not Huemul', 'https://avatars2.githubusercontent.com/u/17724906?s=200&v=4'],
       /(wall|trump)/ => ['Enerwall', 'https://i.imgur.com/IHDlzKS.png'],
       /marcha/ => ['Super Cabo Enerbot', 'https://i.imgur.com/12CNUpm.png'],
-      /pci/ => ['Inoffensive cron', 'https://i.imgur.com/vtzYstx.png']
+      /pci/ => ['Inoffensive cron', 'https://i.imgur.com/vtzYstx.png'],
+      /bonvaold/ => ['Bonvallet', 'https://i.imgur.com/LcahJ7p.png'],
+      /capitan/ => ['Capitán Enerbot', 'https://i.imgur.com/9pwhnZh.png'],
+      /nico/ => ['Nicobot', 'https://i.imgur.com/GbP960s.jpg']
+
     }
 
-    bot_look = ['enerbot', 'https://i.imgur.com/1n1Uohi.png']
+    bot_look = ['Nicobot', 'https://ca.slack-edge.com/T02CTQY6K-UEET8LAHX-d328f4d5b371-512'] # ['enerbot', 'https://i.imgur.com/1n1Uohi.png']
     costume.keys.find { |key| bot_look = costume[key] if key =~ data.text }
     event_look_set(bot_look[0], bot_look[1])
 
@@ -68,13 +72,13 @@ module SystemCustomImage
   extend ImageSlack
 
   def self.exec(data)
-    text = data.text.match(/(\w{2,})\s<(.*)>/)
+    text = data.text.match(/\s(.*)<(.*)>/)
     if text.nil?
       image = 'Meh'
       name = ''
     else
-      name = text.captures[1]
-      image = text.captures[2]
+      name = text[1]
+      image = text[2]
     end
     event_look_set(name, image)
     send_message('Hola', data)

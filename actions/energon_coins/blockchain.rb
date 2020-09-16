@@ -61,15 +61,15 @@ module Blockchain
     # "Llamada actual por #{current_call} con un TS de #{current_call_ts}"
 
     if user == current_call
-      [false, ":bank: *Restricted Transaction* on <##{channel}|S3CR3T>. Just no <@#{user}> :peyo2:"]
+      [false, ":starmeup: *StartMeUp* <##{channel}|S3CR3T>. Just no <@#{user}> :peyo2:"]
     elsif current_call == last_call
       if minutes <= time_to_wait
-        [false, ":bank: *Restricted Transaction* from <@#{current_call}> on <##{channel}|S3CR3T>. *[ENER-200]*: Too many requests."] # ":clock1: #{time_now}"]
+        [false, ":starmeup: *StartMeUp* <@#{current_call}> on <##{channel}|S3CR3T>. *[ENER-200]*: Too many requests."] # ":clock1: #{time_now}"]
       else
-        [true, ":bank: *Approved transaction* from <@#{current_call}> on <##{channel}|S3CR3T>. <@#{user}> now has "]
+        [true, ":starmeup: *StartMeUp* <@#{current_call}> on <##{channel}|S3CR3T>. <@#{user}> now has "]
       end
     else
-      [true, ":bank: *Approved transaction* on #{channel}, <@#{user}> final balance "]
+      [true, ":starmeup: *StartMeUp* <@#{user}> balance de estrellas: "]
     end
   end
 
@@ -78,9 +78,7 @@ module Blockchain
     updated_coins = new_balance(current_coins, type)
     approved_transaction, text = check_permissions(user, data.user, data.ts.to_i, data.channel)
 
-    if approved_transaction
-      update_data(user, updated_coins, type, motive, data.user, data.ts)
-    end
+    update_data(user, updated_coins, type, motive, data.user, data.ts) if approved_transaction
     [updated_coins, text, approved_transaction]
   end
 end

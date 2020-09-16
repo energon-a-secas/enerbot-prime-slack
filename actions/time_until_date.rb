@@ -6,7 +6,7 @@ require 'countries'
 require './lib/message_slack'
 
 ### ENERBOT: cuánto para el 18? --- Muestra los días restantes para el 18 de septiembre.
-module TimeToSeptember
+module TimeUntilSeptember
   extend MessageSlack
 
   def self.exec(data)
@@ -32,27 +32,34 @@ module TimeToSeptember
 end
 
 ### ENERBOT: cuándo pagan? --- Muestra los días restantes para fin de mes.
-module TimeToGardel
+module TimeUntilGardel
   extend MessageSlack
 
   def self.exec(data)
-    date = Date.parse(Date.today.to_s)
-    last = Date.parse(date.end_of_month.downto(date).find(&:working_day?).to_s)
-    d = last.mjd - date.mjd - 0
-    message = '¡Hoy pagan!'
-    if d < 0
-      message = "Pagaron hace #{d.abs} día(s). ¿No te llegó el depósito? Uf..."
-    elsif d > 0
-      message = d == 1 ? "Falta #{d} día" : "Faltan #{d} días"
-      message += ' para que paguen.'
+    current_date = Date.parse(Date.today.to_s)
+    payment_current_month = Date.parse(current_date.beginning_of_month.upto(current_date.next_month).find(&:working_day?).to_s)
+    payment_next_month = Date.parse(current_date.next_month.beginning_of_month.upto(current_date.next_month).find(&:working_day?).to_s)
+    d = payment_next_month.mjd - current_date.mjd
+    dt = current_date.mjd - payment_current_month.mjd
+    message = ''
+    if current_date == payment_current_month
+      message = '¡Hoy pagan!'
+    else
+      if dt < 2
+        message = "Pagaron hace #{dt} día(s). ¿No te llegó el depósito? Uf...\n"
+        message += d == 1 ? "Falta #{d} día" : "Faltan #{d} días"
+        message += ' para el siguiente pago.'
+      elsif d > 0
+        message = d == 1 ? "Falta #{d} día" : "Faltan #{d} días"
+        message += ' para que paguen.'
+      end
     end
-
     send_message(message, data)
   end
 end
 
 ### ENERBOT: próximo feriado (*country*) --- Muestra el próximo feriado del país especificado.
-module TimeToHoliday
+module TimeUntilHoliday
   extend MessageSlack
 
   def self.exec(data)
@@ -90,7 +97,7 @@ module TimeToHoliday
 end
 
 ### ENERBOT: estado (plataforma|softlayer) --- Estimación aproximada del estado de IBM Cloud
-module TimeToCaos
+module TimeUntilCaos
   extend MessageSlack
 
   def self.exec(data)
@@ -122,7 +129,7 @@ module TimeToCaos
               when /(probabilidad|pronostico|turno|call|incidentes)/
                 "Probabilidad de incidentes para las próximas horas: #{per}% #{icon}"
               else
-                ":softlayer-icon: Sin incidentes desde hace #{(Date.parse('4/8/2019')..Date.today).count} días."
+                "Sin incidentes desde hace #{(Date.parse('4/8/2019')..Date.today).count} días."
               end
 
     send_message(message, data)
