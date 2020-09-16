@@ -16,7 +16,7 @@ module BankTeller
     when /(\+\+|--)/
       coin, text, result = update_coins(user, type, motive, data)
       message, icon = if result == true
-                        ["#{text}#{coin} :enercoin:", 'approved']
+                        ["#{text}#{coin}", 'brightened_star']
                       else
                         [text, 'x']
                       end
@@ -24,14 +24,14 @@ module BankTeller
       send_message(message, data.channel)
     when /(balance)/
       coin = check_account(user)
-      self_balance = ":bank: Tu balance de Enercoins es: #{coin}"
-      others_balance = ":bank: El balance de Enercoins de <@#{user}> es: #{coin}"
+      self_balance = ":starmeup: StartMeUp: #{coin} :star:"
+      others_balance = ":starmeup: StartMeUp: <@#{user}> tiene #{coin} :star:"
       if data.user == user
         send_message(self_balance, data.user)
       else
         send_message(others_balance, data.channel)
       end
-      add_reaction('approved', data.channel, data.ts)
+      add_reaction('bank', data.channel, data.ts)
     end
   end
 end

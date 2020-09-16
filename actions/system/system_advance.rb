@@ -21,7 +21,7 @@ class SystemDocs
                current += value
              end
     document = @firestore.doc @full_path
-    document.set('list' => update)
+    document.set('list' => "#{update},")
   end
 
   def set_song(link, date)
@@ -31,7 +31,7 @@ class SystemDocs
 end
 
 ### HELP: visto (para|delete) (*@user1*) --- Self defense using 'seen' emojis.
-module SystemSD
+module SystemIgnore
   extend MessageSlack
 
   def self.exec(data)
@@ -62,29 +62,14 @@ module SystemAutoBan
   end
 end
 
+module SystemEmoji
+  extend MessageSlack
 
-# module SystemTrivia
-#   extend MessageSlack
-#
-#   def self.exec(data)
-#     today = Time.now.strftime('%Y%m%d')
-#     db = SystemDocs.new(doc: 'globant')
-#     info = db.get_data
-#
-#     check = nil
-#     check = data.text.match(/(^(pausa|trivia|enerbot.*trivia))/) unless data.text.nil?
-#     unless check.nil?
-#       if info['time'] == today
-#         url = "<#{info['link']}|SongTrivia> :microphone: "
-#         send_message(url, data)
-#       else
-#         send_message(['Aún no definen room....', 'Alguien decidió extender la meet', 'Esperando a que suban el link', 'No me haría expectativas...'].sample, data)
-#       end
-#     end
-#     link = data.text.match(%r{<(https://songtrivia2.*)>})
-#     if data.user == 'ULSPGBVSM' && !link.nil?
-#       db.set_song(link[1], today) if info['time'] != today
-#       # send_message("<#{link[1]}|SongTrivia> :microphone:", data)
-#     end
-#   end
-# end
+  def self.exec(data)
+    db = SystemDocs.new(doc: 'ban_users')
+    unless data.user.nil?
+      db.get_data['list'].include? data.user
+      add_reaction('seen', data.channel, data.ts) if db.get_data['list'].include? data.user
+    end
+  end
+end
