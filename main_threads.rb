@@ -33,6 +33,8 @@ class MainThreads
       end
 
       threads << client.start_async
+    rescue Slack::Web::Api::Errors::AccountInactive => e
+      puts "#{e.message}: #{token}"
     end
     threads.each(&:join)
   end

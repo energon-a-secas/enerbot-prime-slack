@@ -1,26 +1,41 @@
 require_relative 'lib/admin_slack'
-require_relative 'actions/sing'
-require_relative 'actions/dance'
+require_relative 'lib/image_slack'
+require_relative 'actions/music_taste'
 require_relative 'actions/responses'
-require_relative 'actions/retrieve'
-require_relative 'actions/apis/horoscope'
-require_relative 'actions/apis/security'
+require_relative 'actions/retrieve_text'
 require_relative 'actions/chimuelo'
-require_relative 'actions/help'
-require_relative 'actions/important_dates'
+require_relative 'actions/help_menu'
+require_relative 'actions/time_until_date'
 require_relative 'actions/cultural_references'
-require_relative 'actions/youtube'
 require_relative 'actions/zenbot/zenbot'
-require_relative 'actions/translator'
-require_relative 'actions/quarantine'
-require_relative 'actions/medical_services/hospital_apis'
-require_relative 'actions/medical_services/sheet_doctor'
-require_relative 'actions/medical_services/cheap_doctor'
+require_relative 'actions/translate_text'
+require_relative 'actions/quarantine_services'
+require_relative 'actions/communication'
+require_relative 'actions/kino'
+require_relative 'actions/energon_coins/bank_teller'
 require_relative 'actions/system/system_actions'
 require_relative 'actions/system/system_advance'
 require_relative 'actions/system/system_image'
-require_relative 'actions/energon_coins/bank_teller'
+require_relative 'actions/api_services/earthquakes'
+require_relative 'actions/api_services/horoscope'
+require_relative 'actions/api_services/security'
+require_relative 'actions/api_services/weather_report'
+require_relative 'actions/api_services/youtube_search'
+require_relative 'actions/automatic_functions/emojis'
+require_relative 'actions/medical_services/hospital_apis'
+require_relative 'actions/medical_services/sheet_doctor'
+require_relative 'actions/medical_services/cheap_doctor'
+require_relative 'actions/premium_services/un_secreto'
 require_relative 'actions/scrum_services/scrum_social'
+require_relative 'actions/image_manipulator/chimuelo_advance'
+require_relative 'actions/image_manipulator/remove_bg'
+require_relative 'actions/user_interactions'
+require_relative 'actions/games/nunca_nunca'
+require_relative 'actions/games/secret_friend'
+require_relative 'actions/games/magic_dice'
+require_relative 'actions/out_of_context_internal_jokes'
+require_relative 'actions/chinese_horoscope'
+require_relative 'actions/macaulay_culkin'
 # require_relative 'actions/celery'
 # require_relative 'actions/employees'
 # require_relative 'actions/techdebt'
@@ -31,17 +46,32 @@ require_relative 'actions/scrum_services/scrum_social'
 # but rather to the mechanism for choosing from among one's directives.
 class Directive
   extend AdminSlack
+  extend ImageSlack
 
   def self.check(data)
     text = data.text
     user = data.user
-    # SystemSD.exec(data)
+    channel = data.channel
+
+    unless channel.nil?
+      if ENV['SLACK_RESTRICTED_CHANNELS'].include? channel
+        SystemEmoji.exec(data)
+        AutoEmoji.exec(data)
+      end
+    end
 
     case text
     when /^\\/
       Directive.system_list(text, data) if root_list_include?(user)
-    when /^enerbot/i
-      Thread.new { Directive.command_list(text, data) }
+    when /(un secreto a|un secreto|secreto a|secreto)/
+      Thread.new { PremiumSecret.exec(data) }
+    when /^(enerbot|nicobot|#{ENV['SLACK_BOT_NAME']})/i
+      Thread.new do
+        check = text.match(/^(enerbot|nicobot|#{ENV['SLACK_BOT_NAME']})/i)
+        event_look_set('Nicobot', 'https://i.imgur.com/GbP960s.jpg') if check[1].downcase == 'nicobot'
+        Directive.command_list(text, data)
+        event_look_revert
+      end
     when /^enerscrum/i
       Thread.new { Directive.scrum_list(text, data) }
     when /^enerdoc/i
@@ -50,19 +80,29 @@ class Directive
       Thread.new { BankTeller.exec(data) }
     when /^[-_](.*)/
       Thread.new { Directive.ref_list(text, data) }
-    when /^(zenbot)/
-      Thread.new { Directive.zen_list(text, data) }
+    when /^(zenbot)/i
+      Thread.new do
+        event_look_set('Zenbot', 'https://i.imgur.com/Fswhv2H.png')
+        Directive.zen_list(text, data)
+        event_look_revert
+      end
+    when /(You have been removed from)/
+      SystemReject.exec(data)
     end
   end
 
   def self.command_list(text, data)
     func = { /(ayuda|help)/ => GeneralHelp,
-             /(sing|canta)/ => SingSong,
+             /(sing\s|canta)/ => SingSong,
+             /((sismo|sismos)$|(sismo|sismos) \d)/ => ChileEarthQuakes,
              /(baila)/ => DiscoDance,
+             /\sroll\s\d/ => MagicDice,
+             /(clima|clima de)/ => WeatherReport,
+             /analiza (http|<http)/ => SearchWebSecurity,
              /haarp/ => SearchEarthquakes,
              /recomienda una canci[oó]n/ => RecommendSong,
-             /(hol[ai]$|hello$|love$|dame amor|recomienda)/ => ResponseHi,
              /give me a cybersecurity excuse/i => ResponseSecurity,
+             /(hor[oó]scopo chino)/i => SearchChineseHoroscope,
              /hor[oó]scopo/i => SearchHoroscope,
              /dame una excusa/ => RetrieveExcuse,
              /dame un consejo/ => RetrieveAdvice,
@@ -78,33 +118,39 @@ class Directive
              /(una|tirate una) paya/ => RetrievePaya,
              /santo sepulcro a/ => Chimuelo,
              /frase bronce/ => RetrieveBronce,
-             /pr[oó]ximo feriado /i => TimeToHoliday,
-             /(cu[aá]nto) .* (18)/i => TimeToSeptember,
-             /(cu[aá]ndo) .* (pagan)/i => TimeToGardel,
-             /(softlayer|plataforma)/i => TimeToCaos,
+             /pr[oó]ximo feriado /i => TimeUntilHoliday,
+             /(cu[aá]nto) .* (18)/i => TimeUntilSeptember,
+             /(cu[aá]ndo).*(pagan)/i => TimeUntilGardel,
+             /(softlayer|plataforma)/i => TimeUntilCaos,
              /(pregunta).*(reflex|meditar|pensar)/ => ResponseQuestion,
              /presentate con estilo/ => ResponsePresentation,
+             /un saludo navideño/ => MacaulayCulkin,
              /\sagente/ => ResponseAgent,
-             /enerbot busca/ => YoutubeSearch,
+             /\s(busca|videos de)\s/ => YoutubeSearch,
              /una polemica/ => RetrievePolemica,
              /dame un refr[aá]n/ => RetrieveRefran,
              /compatibilidad/ => SearchCompability,
              /(\s@\s|asado)/ => SystemAutoBan,
              /c[oó]mo se dice/ => TranslateText,
-             # /(oyster|celery)/ => CeleryMan,
-             # /(create|add me)/i => GenerateProfile,
-             # /(check|finger)\s(<@(.*)>|me)$/ => GetProfile,
-             # /(check|finger)\s(<@(.*)>|me)\s(\w.*)/ => GetDetail,
+             /energon info/ => CommLinks,
+             /(n[uú]mer).*?(kino)/ => KinoNumbers,
+             /(ganador kino|resultad(o|os) kino)/ => KinoWinner,
+             /santo sepulcro con estilo a/ => ChimueloAdvance,
+             /(elimina|remueve).*fondo de/ => ImageRemoveBG,
+             /(elimina) a <@(.*)>/ => ImageRemoveBG,
+             /dame un commit/ => ResponseCommit,
+             /qu[eé] caballero .* soy/ => SearchKnight,
+             /amigo secreto/ => SecretFriend,
              # /(debt|recuerda)\s<@/ => DebtAdd,
              # /(deuda|deudas)\s<@/ => DebtGet,
              # /(inducci[oó]n)/ => ResponseIntro,
-             # /(mi cargo|cargo de <@(.*)>)$/ => AdminGet,
-             # /(mi cargo|cargo de <@(.*)>)\s(\w.*)/ => AdminDetails,
              # /enerbot qu[eé]/ => AskMe,
              # /enerbot aprende/ => AskIt,
              /servicios cuarentena/ => QtService,
-             # /[Pp](ichanga|iscola)/ => ResponseZorron,
-             /(centro[s] m[eé]dico[s]|hospitales|clínicas|status (clínicas|hospitales)|internados)/ => HospitalCheck }
+             /(yo (nunca|nunca nunca)$|(yo nunca) (random|niños|adolescente|adulto|joven|sfw|inc[oó]mod[ao]|nsfw))/ => RetrieveNeverNever,
+             /(centro[s] m[eé]dico[s]|hospitales|clínicas|status (clínicas|hospitales)|internados)/ => HospitalCheck,
+             /(hol[ai]$|hello$|love$|dame amor|recomienda|frase de)/ => ResponseHi,
+             /.*/ => OCIJokes }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 
@@ -113,8 +159,8 @@ class Directive
              /(hol[ai]|hello|hi)$/ => SystemHi,
              /history\s/ => SystemHistory,
              /shutdown$/ => SystemKill,
-             /(echo)/ => SystemEcho,
-             /(getta change|replace|mod[oe]|copy|backup)/ => SystemImage,
+             /(echo|dm)/ => SystemEcho,
+             /(getta change|replace|mod[oe]|backup)/ => SystemImage,
              /revive/ => SystemImageBeyond,
              /search/ => SystemUserList,
              /copy/ => SystemCustomImage,
@@ -123,7 +169,10 @@ class Directive
              # /grant/ => Market,
              # /(events|status)$/ => SystemStatus,
              # /nsfw/ => SystemNSFW,
-             /visto/ => SystemSD }
+             /visto/ => SystemIgnore,
+             /(nsfw|nsfw (unlock|lock))$/ => SystemNSFW,
+             # /enerstar/ => SystemEnerStar,
+             /(secho|sreact)/ => SystemLastEvent }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 
@@ -131,15 +180,15 @@ class Directive
     func = { /(ayuda|help)/ => GeneralHelp,
              /(hol[ai]|hello|hi)$/ => ScrumHi,
              /(h[aá]blame|sal[uú]dame)$/ => ScrumDM }
-             #/(ensayo)$/ => ScrumDaily,
-             #/(check)\s<@(.*)>$/ => ScrumCheck,
-             #/attach/ => ScrumAttach,
-             #/get my daily/ => ScrumRetrieve,
-             #/add me/ => ScrumAdd,
-             #/daily start/ => ScrumDaily2,
-             #/(members|miembros)/ => ScrumMembers,
-             #/group info/ => ScrumInfo,
-             #/standup a/ => ScrumStandup }
+    # /(ensayo)$/ => ScrumDaily,
+    # /(check)\s<@(.*)>$/ => ScrumCheck,
+    # /attach/ => ScrumAttach,
+    # /get my daily/ => ScrumRetrieve,
+    # /add me/ => ScrumAdd,
+    # /daily start/ => ScrumDaily2,
+    # /(members|miembros)/ => ScrumMembers,
+    # /group info/ => ScrumInfo,
+    # /standup a/ => ScrumStandup }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 
@@ -162,7 +211,8 @@ class Directive
 
   def self.zen_list(text, data)
     func = { /(help|ayuda)$/ => GeneralHelp,
-             /game/ => ZenGame }
+             /game/ => ZenGame,
+             /(link|breath|one minute)/ => ZenLink }
     func.keys.find { |key| func[key].exec(data) if key =~ text }
   end
 end
