@@ -16,11 +16,7 @@ module SearchHoroscope
               'https://i.imgur.com/Clre94F.png'
             end
 
-    if ENV['SLACK_BOT_NAME'] == 'Nicobot'
-      event_look_set('Nicobot', 'https://i.imgur.com/GbP960s.jpg')
-    else
-      event_look_set(cover, image)
-    end
+    event_look_set(cover, image)
     option = data.text.match(/(aries|tauro|g[eé]minis|c[áa]ancer|leo|virgo|libra|escorpi[oó]n|sagitario|capricornio|acuario|piscis)/i)[0].downcase.gsub('ó', 'o').gsub('á', 'a').gsub('é', 'e')
     sign = %w[aries tauro geminis cancer leo virgo libra escorpion sagitario capricornio acuario piscis]
     text = if sign.include? option

@@ -27,12 +27,11 @@ module SystemImage
       /marcha/ => ['Super Cabo Enerbot', 'https://i.imgur.com/12CNUpm.png'],
       /pci/ => ['Inoffensive cron', 'https://i.imgur.com/vtzYstx.png'],
       /bonvaold/ => ['Bonvallet', 'https://i.imgur.com/LcahJ7p.png'],
-      /capitan/ => ['Capitán Enerbot', 'https://i.imgur.com/9pwhnZh.png'],
-      /nico/ => ['Nicobot', 'https://i.imgur.com/GbP960s.jpg']
+      /capitan/ => ['Capitán Enerbot', 'https://i.imgur.com/9pwhnZh.png']
 
     }
 
-    bot_look = ['Nicobot', 'https://ca.slack-edge.com/T02CTQY6K-UEET8LAHX-d328f4d5b371-512'] # ['enerbot', 'https://i.imgur.com/1n1Uohi.png']
+    bot_look = ['Enerbot', 'https://i.imgur.com/80BYGyJ.png'] # ['enerbot', 'https://i.imgur.com/1n1Uohi.png']
     costume.keys.find { |key| bot_look = costume[key] if key =~ data.text }
     event_look_set(bot_look[0], bot_look[1])
 

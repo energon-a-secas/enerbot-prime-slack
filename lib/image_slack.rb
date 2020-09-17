@@ -1,10 +1,9 @@
 require './lib/search_slack'
 
-# Altered Images
+# Obtains data of user from Slack and then uses them to mimic looks.
 module ImageSlack
   def imitate_look(user)
     c = get_user_info(user)
-    # c.profile.real_name
     name = c.profile.display_name
     image = c.profile.image_512
     event_look_set(name, image)
@@ -16,7 +15,7 @@ module ImageSlack
   end
 
   def event_look_revert
-    ENV['SLACK_BOT_ICON'] = 'https://i.imgur.com/1n1Uohi.png'
+    ENV['SLACK_BOT_ICON'] = 'https://i.imgur.com/yaGNTBb.png' # 'https://ca.slack-edge.com/T02CTQY6K-UEET8LAHX-d328f4d5b371-512'
     ENV['SLACK_BOT_NAME'] = 'Enerbot'
   end
 end

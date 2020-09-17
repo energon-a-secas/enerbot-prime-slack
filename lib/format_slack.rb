@@ -1,13 +1,12 @@
 # Module for regular expressions that are common
 module FormatSlack
-
   def attachment_style(text, pretext: 'Test', color: '#e93d94', author: '')
     attachment = []
     attachment << {
-        "color": color,
-        "author_name": author,
-        "pretext": pretext,
-        "text": text
+      "color": color,
+      "author_name": author,
+      "pretext": pretext,
+      "text": text
     }
     attachment
   end
@@ -23,12 +22,14 @@ module FormatSlack
                 /<@(.*)>/
               when 'channel'
                 /<#(.*)\|(.*)>/
+              when 'channel_fix'
+                /\s#(.*?)\s/
               end
     text.match(pattern)
   end
 
   def channel_pattern(data)
-    match = data.match(/^\\.*?\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
+    match = data.match(/\s(\<[#@])?((.*)\|)?(.*?)(\>)? (.*?)$/i)
     unless match.nil?
       channel = match.captures[2] || match.captures[3]
       text = match.captures[5]

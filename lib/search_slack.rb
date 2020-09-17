@@ -65,6 +65,15 @@ module SearchOnSlack
     false
   end
 
+  def conversation_members(channel, limit = 60)
+    client = configure_client
+    info = client.conversations_members channel: channel, limit: limit
+    info.members
+  rescue Slack::Web::Api::Errors::SlackError => e
+    print e.message
+    false
+  end
+
   def conversation_list
     client = configure_client
     client.conversations_list.channels

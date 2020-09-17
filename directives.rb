@@ -65,12 +65,9 @@ class Directive
       Directive.system_list(text, data) if root_list_include?(user)
     when /(un secreto a|un secreto|secreto a|secreto)/
       Thread.new { PremiumSecret.exec(data) }
-    when /^(enerbot|nicobot|#{ENV['SLACK_BOT_NAME']})/i
+    when /^(enerbot|#{ENV['SLACK_BOT_NAME']})/i
       Thread.new do
-        check = text.match(/^(enerbot|nicobot|#{ENV['SLACK_BOT_NAME']})/i)
-        event_look_set('Nicobot', 'https://i.imgur.com/GbP960s.jpg') if check[1].downcase == 'nicobot'
         Directive.command_list(text, data)
-        event_look_revert
       end
     when /^enerscrum/i
       Thread.new { Directive.scrum_list(text, data) }
