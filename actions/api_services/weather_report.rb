@@ -9,7 +9,7 @@ module WeatherReport
     text = data.text
     location = 'Santiago'
     if (match = text.match(/clima\s(.*?)$/i))
-      location = match.captures[0]
+      location = match.captures[0].gsub('á', 'a').gsub(' ', '')
     end
     html = open("https://wttr.in/#{location}?m", 'User-Agent' => 'curl/7.62.0').read
     weather = ''
