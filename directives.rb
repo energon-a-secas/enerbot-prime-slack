@@ -21,6 +21,7 @@ require_relative 'actions/api_services/horoscope'
 require_relative 'actions/api_services/security'
 require_relative 'actions/api_services/weather_report'
 require_relative 'actions/api_services/youtube_search'
+require_relative 'actions/api_services/paya_random'
 require_relative 'actions/automatic_functions/emojis'
 require_relative 'actions/medical_services/hospital_apis'
 require_relative 'actions/medical_services/sheet_doctor'
@@ -112,7 +113,8 @@ class Directive
              /cuenta un chiste/ => ResponseJoke,
              /dame (un chiste de meruane|un buen chiste)/ => RetrieveMeruane,
              /(dame|tira|tirate) (un|una) (vers[ií]culo|cita b[ií]blica|biblia)/ => RetrieveBible,
-             /(una|tirate una) paya/ => RetrievePaya,
+             /paya/ => RetrievePaya,
+             /paya random/ => PayaRandom,
              /santo sepulcro a/ => Chimuelo,
              /frase bronce/ => RetrieveBronce,
              /pr[oó]ximo feriado /i => TimeUntilHoliday,
